@@ -371,6 +371,7 @@ var goalWord = '';
 var userInput = userInputBox.value;
 var lastWord = oldInputLabelI.value;
 
+var scoreMultiplier = 0;
 var score = 0;
 var firstplayerscore = -1;
 
@@ -396,6 +397,7 @@ function reset() {
   // reset scores
   scoreLabel.textContent = "0";
   score = 0;
+  scoreMultiplier = 0;
 
   // reset message label
   messageLabel.textContent = "";
@@ -429,12 +431,16 @@ function setDifficulty() {
     userInputBox.maxLength = difficulty;
   
     // For each difficulty setting, calls the corresponding function for the dictionaries
+    // also increases the score multiplier to weight longer words
     if (difficulty == 3) {
       threeLetterDictionary();
+      scoreMultiplier = 1;
     } else if (difficulty == 4) {
       fourLetterDictionary();
+      scoreMultiplier = 2;
     } else if (difficulty == 5) {
       fiveLetterDictionary();
+      scoreMultiplier = 3;
     }
 
     // Returns difficulty level in console, for debugging
@@ -953,6 +959,9 @@ function shiftDown() {
   oldInputLabelIV.textContent = oldTextIII;
   userInputBox.value = "";
 
+  // plays the click sound when shifted down
+  playSound(clickSound);
+
   // check if the new word matches the goal word
   if (isWordGoalWord(oldInputLabelI.textContent, goalWord)) {
     // creates new set
@@ -966,10 +975,10 @@ function shiftDown() {
 function updateScore() {
   // increases score variable by one and then sets contents of score label to score value
   score++;
-  scoreLabel.textContent = score;
+  scoreLabel.textContent = score * scoreMultiplier;
 
   // sets highscore score label to current score
-  highscoreLabel.textContent = score;
+  highscoreLabel.textContent = parseInt(score * scoreMultiplier);
 
   // plays ding sound when player scores
   playSound(correctSound);

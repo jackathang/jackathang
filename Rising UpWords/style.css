@@ -464,7 +464,7 @@ ol li {
 }
 
 .instructions img {
-  max-width: 40%;
+  max-height: 90%;
   margin-left: 3%;
 
   border-radius: 5%;

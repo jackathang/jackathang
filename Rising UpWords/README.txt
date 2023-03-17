@@ -1,5 +1,5 @@
 Rising Upwords
-A word ladders game that pushes players vocabularies to the test. Utilizes problem solving skills to get from one word to another by only changing one letter at a time.
+A word ladders game that pushes players vocabularies to the test. This game utilizes problem solving skills and your voabulary to get from one word to another by only changing one letter at a time.
 
 Installation
 To play the game just click on the Rising Upwords Icon or index.html. If neither of those work, paste https://jackathang.github.io/jackathang/Rising%20UpWords/ into browser.
@@ -20,6 +20,7 @@ Features
 
 Known Issues
 -Not all difficulties are able to get from one word to the next
+-Some words may be uncommon words
 
 Credits
 All artwork by Jack Graue (myself)
