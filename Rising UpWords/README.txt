@@ -2,7 +2,7 @@ Rising Upwords
 A word ladders game that pushes players vocabularies to the test. Utilizes problem solving skills to get from one word to another by only changing one letter at a time.
 
 Installation
-To play the game just click on the Rising Upwords Icon.
+To play the game just click on the Rising Upwords Icon or index.html. If neither of those work, paste https://jackathang.github.io/jackathang/Rising%20UpWords/ into browser.
 
 How to Play
 1. Select either singleplayer or multiplayer mode
@@ -22,7 +22,27 @@ Known Issues
 -Not all difficulties are able to get from one word to the next
 
 Credits
-All artwork by Jack Graue
-Sounds used are royalty-free and have no copyright
+All artwork by Jack Graue (myself)
+
+Click sound - complex_waveform 
+https://freesound.org/s/213148/
+
+Ding sound - InspectorJ (www.jshaw.co.uk)
+https://freesound.org/s/411089/
+
+New highscore - InspectorJ (www.jshaw.co.uk)
+https://freesound.org/s/403016/
+
+Buzzer - FiveBrosStopMosYT
+https://freesound.org/s/537026/
+
+Game Over - themusicalnomad
+https://freesound.org/s/253886/
+
+Ambient City - sagetyrtle
+https://freesound.org/s/36734/
+
+
+
 
 

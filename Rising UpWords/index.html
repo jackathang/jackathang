@@ -38,13 +38,13 @@
         
         <div class = "menu-inputs">
             
-            <button class = "leaderboard-button">leaderboard</button>
+            <button id = "leaderboard-button">leaderboard</button>
             
-            <button class = "multiplayer">Singleplayer</button>
+            <button id = "multiplayer">Singleplayer</button>
 
-            <button class = 'difficulty'>Select Difficulty</button>
+            <button id = 'difficulty'>Select Difficulty</button>
 
-            <button class = "play-button">Play</button>
+            <button id = "play-button">Play</button>
         </div>
 
     </div>
@@ -109,7 +109,11 @@
     
 
     <div class = "play">
+      <div class = "top-button">
         <button class="menu-button">Menu</button>
+        <button id = "help-button">?</button>
+      </div>
+        
         <div class = "gamestats">
             <label id = "score">0</label>
             <label id = "attempts">X X X X X </label>
@@ -136,6 +140,28 @@
 
         <button id ="submitbutton" class = "highscorelabels" >Submit</button>
     </div>
+
+    <div class = "howtoplay">
+      <button id = "back">Back</button>
+
+      <h1>How to play</h1>
+
+      <div class = "instructions">
+        <ol>
+          <li><b>1. </b> Type in words to get from the word below to the word at the top and press enter.</li>
+          <li><b>2. </b> You can not enter words with more or less than a 1 letter difference to the word below.</li>
+          <li><b>3. </b> You can only input real words.</li>
+          <li><b>4. </b> If you fail to input a valid word, you will be deducted an attempt.</li>
+          <li><b>5. </b> When you reach the word at the top, you will be awarded a point.</li>
+          <li><b>6. </b> Try to get as many points as you can without losing all your attempts!</li>
+        </ol>
+
+        <img src = "Rising UpWords Art/help.gif">
+
+      </div>
+
+    </div>
+
 
     <script src = "scripts/game.js"></script>
 </body>

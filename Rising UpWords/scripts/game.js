@@ -9,6 +9,64 @@ var incorrectcolor = "#E03933"
 var selectedcolor = "#f3c83f"
 var correctcolor = "#5DC904"
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Sounds
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// sound for buttons
+var clickSound = new Audio("sounds/click.wav");
+
+// sound for when score increases
+var correctSound = new Audio("sounds/ding.wav");
+
+// sound for new high score
+var highscoreSound = new Audio("sounds/newhighscore.wav");
+
+// sound for when input is wront
+var wrongSound = new Audio("sounds/wrong.wav");
+
+// game over sound
+var gameoverSound = new Audio("sounds/gameover.wav");
+
+// gets all buttons
+var buttons = document.querySelectorAll("button");
+
+// iterates through the number of buttons
+for (var i = 0; i < buttons.length; i++) {
+  // for button in iteration, when it is clicked it plays the sound as long as game isn't muted
+  buttons[i].addEventListener("click", function() {
+    // play the click sound
+    clickSound.play();
+    
+  });
+}
+
+// function to play a sound when called
+function playSound(sound) {
+  // only plays when mute button is checked
+  if (!musicCheckbox.checked) {
+    sound.play();
+  }
+}
+
+// sound volume, changed base on what is called
+function soundVolume(level) {
+  // sets volumes of all sounds to called level
+  clickSound.volume = level
+  correctSound.volume = level
+  highscoreSound.volume = level
+  wrongSound.volume = level
+  gameoverSound.volume = level
+}
+
+
+// incorrect sound (misinput)
+
+// correct sound
+
+// game over sound
+
+// new high score sound
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,7 +81,7 @@ var correctcolor = "#5DC904"
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Button
-var difficultyButton = document.querySelector(".difficulty");
+var difficultyButton = document.querySelector("#difficulty");
 
 // variables for functionality
 var difficulties = ["3 Letters", "4 Letters", "5 Letters"];
@@ -56,8 +114,10 @@ function toggleSound() {
   // if unchecked it enables sound and shows unmuted image
   if (musicCheckbox.checked) {
     musicImage.src = 'Rising UpWords Art/muted.png';
+    soundVolume(0);
   } else {
     musicImage.src = 'Rising UpWords Art/unmuted.png';
+    soundVolume(1);
   }
 }
 
@@ -69,7 +129,7 @@ document.querySelector('#music input[type="checkbox"]').addEventListener('change
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Multiplayer button
-var multiplayerButton = document.querySelector('.multiplayer');
+var multiplayerButton = document.querySelector('#multiplayer');
 
 // Toggles text for button
 function toggleButtonText() {
@@ -129,16 +189,18 @@ highscoreSubmitButton.addEventListener("click", submitButton);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Buttons
-var playButton = document.getElementsByClassName("play-button")[0];
-var leaderboardButton = document.getElementsByClassName("leaderboard-button")[0];
-var menuButtons = document.getElementsByClassName("menu-button");
-
+var playButton = document.querySelector("#play-button");
+var leaderboardButton = document.querySelector("#leaderboard-button");
+var menuButtons = document.querySelectorAll(".menu-button");
+var helpButton = document.querySelector("#help-button");
+var backButton = document.querySelector("#back");
 
 // Screen divs
 var playDiv = document.querySelector(".play");
 var leaderboardDiv = document.querySelector(".leaderboard");
 var menuDiv = document.querySelector(".menu");
-var highscoreDiv = document.querySelector(".highscore")
+var highscoreDiv = document.querySelector(".highscore");
+var howtoplayDiv = document.querySelector(".howtoplay");
 
 // Logo image
 var logo = document.querySelector('.menu #logo')
@@ -148,6 +210,7 @@ show(menuDiv, 'moveUp');
 hide(leaderboardDiv, 'moveDown');
 hide(playDiv, 'moveDown');
 hide(highscoreDiv, 'moveDown');
+hide(howtoplayDiv, "moveDown");
 
 
 // hides whatever is called
@@ -216,20 +279,49 @@ function toggleMenuScreen() {
 
 // maps escape key to return to the main menu
 function escapeMenuScreen(event) {
-  // checks for whether play or leaderboard screens are showing
-  if (playDiv.style.visibility == "visible" || leaderboardDiv.style.visibility == 'visible') {
-    // and if the key is the escape key then it toggles the menu
+  // plays click sound (i just think it sounds better)
+  playSound(clickSound);
+  // check if howtoplayDiv is visible
+  if (howtoplayDiv.style.visibility == "visible") {
+    // toggle howtoplayDiv when escape is pressed
     if (event.key == "Escape" || event.key == "Esc") {
-      toggleMenuScreen();
+      toggleHowtoPlay();
     }
+  } else {
+    // if playDiv or leaderboardDiv is visible
+    if (playDiv.style.visibility == "visible" || leaderboardDiv.style.visibility == 'visible') {
+      // toggle menu screen
+      if (event.key == "Escape" || event.key == "Esc") {
+        toggleMenuScreen();
+      }
+    }
+  }
+}
+
+
+// function to toggle how to play
+function toggleHowtoPlay() {
+  // if it is visible collapse
+  if (howtoplayDiv.style.visibility == "visible") {
+    hide(howtoplayDiv, "moveDown");
+  } else {
+    // if its not pull it up
+    show(howtoplayDiv, "moveUp");
   }
 }
 
 // Event listeners for all navigational buttons
 playButton.addEventListener("click", togglePlayScreen);
 leaderboardButton.addEventListener("click", toggleLeaderboardScreen);
-menuButtons[0].addEventListener("click", toggleMenuScreen);
-menuButtons[1].addEventListener("click", toggleMenuScreen);
+
+menuButtons.forEach(button => {
+  button.addEventListener('click', toggleMenuScreen);
+})
+
+helpButton.addEventListener("click", toggleHowtoPlay);
+backButton.addEventListener("click", toggleHowtoPlay);
+
+
 
 // calls function when a key (escape) is pressed
 document.addEventListener('keydown',escapeMenuScreen);
@@ -251,22 +343,23 @@ document.addEventListener('keydown',escapeMenuScreen);
 // Variables
 // #region
 // Gets id of html elements and sets it to a variable
-var scoreLabel = document.getElementById("score");
+var scoreLabel = document.querySelector("#score");
 
-var highscoreLabel = document.getElementById("highscoreLabel");
+var highscoreLabel = document.querySelector("#highscoreLabel");
 
-var attemptsLabel = document.getElementById("attempts");
+var attemptsLabel = document.querySelector("#attempts");
 
-var messageLabel = document.getElementById("message");
+var messageLabel = document.querySelector("#message");
 
-var goalWordLabel = document.getElementById("goalword");
+var goalWordLabel = document.querySelector("#goalword");
 
-var userInputBox = document.getElementById("userinput");
+var userInputBox = document.querySelector("#userinput");
 
-var oldInputLabelI = document.getElementById("old1");
-var oldInputLabelII = document.getElementById("old2");
-var oldInputLabelIII = document.getElementById("old3");
-var oldInputLabelIV = document.getElementById("old4");
+var oldInputLabelI = document.querySelector("#old1");
+var oldInputLabelII = document.querySelector("#old2");
+var oldInputLabelIII = document.querySelector("#old3");
+var oldInputLabelIV = document.querySelector("#old4");
+
 
 // Variables used for gameplay mechanics
 var dictionaryArray = [];
@@ -322,7 +415,7 @@ function multiplayer() {
 // difficulty setting
 function setDifficulty() {
     // difficulty button variables
-    var difficultyButton = document.querySelector(".difficulty");
+    var difficultyButton = document.querySelector("#difficulty");
 
     // sets difficulty variable to text value of the button
     // (3 Letters, 4 Letters, 5 Letters)
@@ -455,7 +548,7 @@ function threeLetterDictionary() {
     'raw', 'ray', 'red', 'rep', 'rev', 'rex', 'rib', 'rid', 'rig', 'rim', 'rip', 'rob', 'rod', 'rot', 'row', 'rub', 'rue', 'rug', 'rum', 'run',
     'rut', 'rye', 'sac', 'sad', 'sag', 'sap', 'sat', 'saw', 'sax', 'say', 'sea', 'see', 'set', 'sew', 'she', 'shy', 'sib', 'sim', 'sin',
     'sip', 'sir', 'sit', 'six', 'ski', 'sky', 'sly', 'sob', 'sod', 'son', 'sop', 'sow', 'soy', 'spa', 'spy', 'sty', 'sub', 'sue', 'sum', 'sun',
-    'syn', 'tab', 'tad', 'tag', 'tan', 'tap', 'tar', 'tat', 'taw', 'tax', 'tea', 'tee', 'ten', 'the', 'thy', 'tic', 'tie', 'tin', 'tip', 'tit',
+    'syn', 'tab', 'tad', 'tag', 'tan', 'tap', 'tar', 'tat', 'taw', 'tax', 'tea', 'tee', 'ten', 'the', 'thy', 'tic', 'tie', 'tin', 'tip', 
     'toe', 'ton', 'too', 'top', 'tot', 'tow', 'toy', 'try', 'tub', 'tug', 'tux', 'two', 'tye', 'ump', 'wab', 'wad', 'wag', 'war', 'was', 'wat',
     'wax', 'way', 'web', 'wet', 'who', 'why', 'wig', 'win', 'wit', 'woe', 'won', 'woo', 'wow', 'wry', 'yah', 'yak', 'yam', 'yap', 'yaw', 'yay',
     'yen', 'yep', 'yes', 'yet', 'yew', 'yin', 'yip', 'yon', 'you', 'yow', 'yum', 'yup', 'zag', 'zap', 'zig', 'zip', 'zit', 'zoo', 'nat'
@@ -467,84 +560,169 @@ function threeLetterDictionary() {
 //  NOTE : 1521 words total (1520 for last in an array)
 function fourLetterDictionary() {
   dictionaryArray = [
-    'also', 'able', 'abut', 'ache', 'achy', 'acid', 'acme', 'acne', 'acre', 'aero', 'afar', 'aged', 'aide', 'airy', 'ajar', 'akin', 'alas', 'ally', 'aloe', 'alto',
-    'alum', 'amen', 'amid', 'ammo', 'anew', 'anon', 'anti', 'anus', 'apex', 'aqua', 'arch', 'area', 'aria', 'arid', 'army', 'arse', 'arty', 'ashy', 'atom', 'atop',
-    'aunt', 'aura', 'auto', 'avid', 'away', 'awry', 'axel', 'axes', 'axis', 'axle', 'babe', 'baby', 'back', 'bail', 'bait', 'bake', 'bald', 'bale', 'ball', 'band',
-    'bang', 'bank', 'bans', 'bard', 'bare', 'bark', 'barn', 'base', 'bash', 'bass', 'bath', 'bats', 'bead', 'beam', 'bean', 'bear', 'beat', 'beck', 'beef', 'been',
-    'beer', 'bell', 'belt', 'bend', 'bent', 'berg', 'best', 'beta', 'beth', 'bias', 'bike', 'bile', 'bill', 'bind', 'bird', 'bite', 'blew', 'blog', 'blot', 'blow',
-    'blue', 'blur', 'boar', 'boat', 'bode', 'body', 'boil', 'bold', 'bolt', 'bomb', 'bond', 'bone', 'bony', 'book', 'boom', 'boot', 'bore', 'born', 'boss', 'both',
-    'bout', 'bowl', 'brad', 'bran', 'bray', 'bred', 'brew', 'brow', 'buck', 'buff', 'bulb', 'bulk', 'bull', 'bump', 'bunk', 'bunt', 'burn', 'burr', 'bury', 'bush',
-    'bust', 'busy', 'butt', 'buzz', 'byte', 'cafe', 'cage', 'cake', 'calf', 'call', 'calm', 'came', 'camp', 'cane', 'cape', 'carb', 'card', 'care', 'carp', 'cart',
-    'case', 'cash', 'cast', 'cave', 'cell', 'cent', 'chap', 'char', 'chat', 'chef', 'chew', 'chic', 'chin', 'chip', 'chop', 'chow', 'chum', 'cite', 'city', 'clad',
-    'clam', 'clan', 'clap', 'claw', 'clay', 'clip', 'clog', 'clot', 'club', 'clue', 'coal', 'coat', 'coax', 'coca', 'cock', 'code', 'coil', 'coin', 'coke', 'cola',
-    'cold', 'colt', 'coma', 'comb', 'come', 'cone', 'cook', 'cool', 'coop', 'cope', 'copy', 'cord', 'core', 'cork', 'corn', 'cost', 'cosy', 'cote', 'coup', 'cove',
-    'cozy', 'crab', 'cram', 'crap', 'crew', 'crib', 'crop', 'crow', 'crux', 'cube', 'cuff', 'cull', 'cult', 'curb', 'cure', 'curl', 'curt', 'cusp', 'cute', 'daft',
-    'dahl', 'dais', 'dame', 'damn', 'damp', 'dank', 'dare', 'dark', 'darn', 'dart', 'dash', 'data', 'date', 'dawn', 'days', 'daze', 'dead', 'deaf', 'deal', 'dean',
-    'dear', 'debt', 'deck', 'deco', 'deed', 'deem', 'deep', 'deer', 'deft', 'defy', 'deli', 'dell', 'demo', 'dent', 'deny', 'desk', 'dial', 'dice', 'dick', 'diet',
-    'dill', 'dime', 'dine', 'ding', 'dire', 'dirk', 'dirt', 'disc', 'dish', 'disk', 'diss', 'diva', 'dive', 'dock', 'does', 'dole', 'doll', 'dome', 'done', 'dong',
-    'doom', 'door', 'dope', 'dorm', 'dose', 'doth', 'dour', 'dove', 'down', 'drab', 'drag', 'dram', 'draw', 'drew', 'drip', 'drop', 'drug', 'drum', 'dual', 'duck',
-    'duct', 'dude', 'duel', 'duet', 'duff', 'duke', 'dull', 'duly', 'dumb', 'dump', 'dune', 'dung', 'dunk', 'dura', 'dusk', 'dust', 'duty', 'dyke', 'each', 'earl',
-    'earn', 'ears', 'ease', 'east', 'easy', 'eats', 'echo', 'edge', 'edgy', 'edit', 'eels', 'elks', 'elms', 'elmy', 'else', 'emeu', 'emit', 'emmy', 'emus', 'ends',
-    'enuf', 'envy', 'eons', 'epic', 'ergo', 'erst', 'espy', 'etch', 'euro', 'even', 'ever', 'eves', 'evil', 'ewes', 'exam', 'exed', 'exes', 'exit', 'expo', 'eyed',
-    'eyes', 'face', 'fact', 'fade', 'fail', 'fair', 'fake', 'fall', 'fame', 'fang', 'fare', 'farm', 'fart', 'fast', 'fate', 'faux', 'fave', 'fawn', 'faze', 'fear',
-    'feat', 'feed', 'feel', 'feet', 'fell', 'felt', 'fend', 'fern', 'fess', 'fest', 'feud', 'fiat', 'fido', 'fife', 'file', 'fill', 'film', 'find', 'fine', 'fink',
-    'fire', 'firm', 'fish', 'fist', 'five', 'fizz', 'flag', 'flak', 'flap', 'flat', 'flaw', 'flax', 'flea', 'fled', 'flee', 'flew', 'flex', 'flip', 'flop', 'flow',
-    'flue', 'flux', 'foal', 'foam', 'foci', 'foil', 'fold', 'folk', 'fond', 'font', 'food', 'fool', 'foot', 'ford', 'fore', 'fork', 'form', 'fort', 'foul', 'four',
-    'fowl', 'foxy', 'frat', 'fray', 'free', 'fret', 'frog', 'from', 'fuel', 'full', 'fume', 'fund', 'funk', 'fury', 'fuse', 'fuss', 'fuzz', 'gaff', 'gage', 'gain',
-    'gait', 'gala', 'gale', 'gall', 'game', 'gang', 'gape', 'gash', 'gasp', 'gast', 'gate', 'gave', 'gawk', 'gaze', 'gear', 'geek', 'geez', 'gene', 'gent', 'germ',
-    'gift', 'gill', 'gilt', 'gimp', 'girl', 'giro', 'girt', 'gist', 'give', 'glad', 'glam', 'glee', 'glen', 'glob', 'glow', 'glue', 'glum', 'glut', 'gnar', 'gnat',
-    'gnaw', 'goal', 'goat', 'goes', 'gold', 'golf', 'gone', 'gong', 'good', 'goof', 'gook', 'goon', 'goop', 'gore', 'gory', 'goth', 'gout', 'gown', 'grab', 'grad',
-    'gram', 'gray', 'grew', 'grey', 'grid', 'grim', 'grin', 'grip', 'grit', 'grog', 'grow', 'grub', 'gulf', 'gull', 'gulp', 'gunk', 'guru', 'gush', 'gust', 'gyro',
-    'hack', 'haft', 'hail', 'hair', 'hale', 'half', 'hall', 'halo', 'halt', 'hand', 'hang', 'hard', 'hare', 'hark', 'harm', 'harp', 'hart', 'hash', 'hast', 'hate',
-    'hath', 'haul', 'have', 'hawk', 'haze', 'hazy', 'head', 'heal', 'heap', 'hear', 'heat', 'heck', 'heed', 'heel', 'heir', 'held', 'hell', 'helm', 'help', 'hemp',
-    'herb', 'herd', 'here', 'hero', 'hers', 'hewn', 'hick', 'hide', 'high', 'hike', 'hill', 'hilt', 'hind', 'hint', 'hire', 'hiss', 'hive', 'hoax', 'hold', 'hole',
-    'holt', 'holy', 'home', 'homo', 'hone', 'hood', 'hoof', 'hook', 'hoop', 'hoot', 'hope', 'horn', 'hose', 'host', 'hour', 'howl', 'huff', 'huge', 'hula', 'hulk',
-    'hull', 'hump', 'hung', 'hunk', 'hunt', 'hurl', 'hurt', 'hush', 'husk', 'hymn', 'hype', 'hypo', 'ibex', 'iced', 'ices', 'icky', 'icon', 'idea', 'idle', 'idly',
-    'idol', 'iffy', 'imps', 'inch', 'info', 'inks', 'inky', 'inns', 'into', 'ions', 'iota', 'ired', 'ires', 'irid', 'iris', 'irks', 'iron', 'isle', 'itch', 'item',
-    'jabs', 'jack', 'jade', 'jail', 'jamb', 'jams', 'jars', 'java', 'jaws', 'jays', 'jazz', 'jeep', 'jeer', 'jell', 'jerk', 'jest', 'jets', 'jews', 'jibe', 'jigs',
-    'jimp', 'jink', 'jinx', 'jive', 'jobs', 'jock', 'jogs', 'join', 'joke', 'jolt', 'jots', 'jows', 'joys', 'jube', 'judo', 'jugs', 'juju', 'juke', 'jump', 'junk',
-    'jupe', 'jury', 'just', 'juts', 'kale', 'keef', 'keel', 'keen', 'keep', 'kegs', 'kelp', 'kelt', 'kemp', 'kept', 'kern', 'khan', 'kick', 'kill', 'kiln', 'kilo',
-    'kilt', 'kind', 'king', 'kink', 'kiss', 'kist', 'kite', 'kiwi', 'knap', 'knee', 'knew', 'knit', 'knob', 'knot', 'know', 'kook', 'lace', 'lack', 'lady', 'laid',
-    'lain', 'lair', 'lake', 'lamb', 'lame', 'lamp', 'land', 'lane', 'lang', 'lard', 'lark', 'lash', 'lass', 'last', 'late', 'lava', 'lawn', 'lazy', 'lead', 'leaf',
-    'leak', 'lean', 'leap', 'leek', 'left', 'lend', 'lens', 'lent', 'less', 'lest', 'levy', 'lewd', 'liar', 'lice', 'lick', 'lied', 'lieu', 'life', 'lift', 'like',
-    'limb', 'lime', 'limo', 'limp', 'line', 'link', 'lion', 'list', 'lite', 'live', 'load', 'loaf', 'loan', 'lobe', 'loch', 'lock', 'loco', 'lode', 'loft', 'logo',
-    'lone', 'long', 'look', 'loom', 'loop', 'loot', 'lord', 'lore', 'lose', 'loss', 'lost', 'loud', 'love', 'lube', 'luck', 'lull', 'lump', 'lung', 'lure', 'lurk',
-    'lush', 'lust', 'lute', 'lynx', 'mace', 'made', 'magi', 'maid', 'mail', 'main', 'make', 'male', 'mall', 'malt', 'mama', 'mane', 'many', 'mare', 'mark', 'mart',
-    'mash', 'mask', 'mass', 'mast', 'mate', 'math', 'maud', 'mayo', 'maze', 'mead', 'meal', 'mean', 'meat', 'meek', 'meet', 'mega', 'meld', 'melt', 'memo', 'mend',
-    'menu', 'mere', 'mesa', 'mesh', 'mess', 'meth', 'mice', 'midi', 'mild', 'mile', 'milk', 'mill', 'mime', 'mind', 'mine', 'mini', 'mink', 'mint', 'mire', 'miss',
-    'mist', 'mite', 'moan', 'moat', 'mock', 'mode', 'mojo', 'mold', 'mole', 'moll', 'monk', 'mono', 'mood', 'moon', 'moot', 'more', 'moss', 'moth', 'move', 'much',
-    'muck', 'mule', 'mull', 'muse', 'mush', 'musk', 'must', 'mute', 'myth', 'nabs', 'nada', 'nags', 'nail', 'name', 'nana', 'naps', 'narc', 'nave', 'navy', 'nays',
-    'near', 'neat', 'neck', 'need', 'neon', 'nerd', 'nest', 'nets', 'nett', 'news', 'newt', 'next', 'nibs', 'nice', 'nick', 'nigh', 'nill', 'nine', 'nipa', 'nips',
-    'nite', 'nobs', 'nock', 'node', 'nods', 'noel', 'nogs', 'noir', 'none', 'nook', 'noon', 'nope', 'nose', 'nosy', 'note', 'noun', 'nova', 'nude', 'nuke', 'null',
-    'numb', 'nuts', 'oafs', 'oaks', 'oaky', 'oars', 'oast', 'oath', 'oats', 'obey', 'obit', 'oboe', 'odds', 'odor', 'ogle', 'ogre', 'ohms', 'oils', 'oily', 'oink',
-    'okay', 'okra', 'olds', 'omen', 'omit', 'once', 'ones', 'only', 'onto', 'onyx', 'ooze', 'oozy', 'opal', 'open', 'opts', 'oral', 'orbs', 'orby', 'orca', 'orcs',
-    'ores', 'ouch', 'ouds', 'ours', 'oval', 'oven', 'over', 'oxen', 'pace', 'pack', 'pact', 'page', 'paid', 'pain', 'pair', 'pale', 'pall', 'palm', 'pane', 'pang',
-    'papa', 'park', 'parr', 'part', 'pass', 'past', 'path', 'pave', 'pawn', 'peak', 'pear', 'peat', 'peck', 'peek', 'peel', 'peep', 'peer', 'perk', 'perm', 'peso',
-    'pest', 'pick', 'pier', 'pike', 'pile', 'pill', 'pine', 'ping', 'pink', 'pint', 'pipe', 'pity', 'plan', 'play', 'plea', 'plot', 'plow', 'ploy', 'plug', 'plum',
-    'plus', 'poem', 'poet', 'poke', 'pole', 'poll', 'polo', 'poly', 'pond', 'pony', 'pool', 'poor', 'pope', 'pore', 'pork', 'port', 'pose', 'post', 'pour', 'pray',
-    'prep', 'prey', 'prod', 'prom', 'prop', 'puck', 'puff', 'pull', 'pulp', 'puma', 'pump', 'punk', 'punt', 'pure', 'push', 'putt', 'quad', 'quai', 'quay', 'quid',
-    'quin', 'quip', 'quit', 'quiz', 'race', 'rack', 'racy', 'raft', 'rage', 'raid', 'rail', 'rain', 'rake', 'ramp', 'rang', 'rank', 'rant', 'rare', 'rash', 'rasp',
-    'rate', 'rave', 'raze', 'read', 'real', 'ream', 'reap', 'rear', 'redo', 'reed', 'reef', 'reek', 'reel', 'rein', 'rely', 'rent', 'rest', 'rice', 'rich', 'rick',
-    'ride', 'riff', 'rift', 'rind', 'ring', 'rink', 'riot', 'ripe', 'rise', 'risk', 'rite', 'ritz', 'rive', 'road', 'roam', 'roar', 'robe', 'rock', 'rode', 'role',
-    'roll', 'romp', 'roof', 'rook', 'room', 'root', 'rope', 'rose', 'rosy', 'ruby', 'ruck', 'rudd', 'rude', 'ruff', 'ruin', 'rule', 'rump', 'rune', 'rung', 'ruse',
-    'rush', 'rust', 'sack', 'safe', 'saga', 'sage', 'said', 'sail', 'sake', 'sale', 'salt', 'same', 'sand', 'sang', 'sank', 'save', 'scan', 'scar', 'seal', 'seat',
-    'seed', 'seek', 'seem', 'seen', 'self', 'sell', 'semi', 'send', 'sent', 'shed', 'ship', 'shoe', 'shop', 'shot', 'show', 'shut', 'sick', 'side', 'sigh', 'sign',
-    'silk', 'sing', 'sink', 'site', 'size', 'skin', 'skip', 'slab', 'slam', 'slap', 'slid', 'slim', 'slip', 'slot', 'slow', 'snap', 'snow', 'soap', 'soar', 'soda',
-    'sofa', 'soft', 'soil', 'sold', 'sole', 'solo', 'some', 'song', 'soon', 'sore', 'sort', 'soul', 'soup', 'sour', 'span', 'spin', 'spit', 'spot', 'spun', 'spur',
-    'star', 'stay', 'stem', 'step', 'stir', 'stop', 'such', 'suck', 'suit', 'sung', 'sunk', 'sure', 'surf', 'swan', 'swap', 'sway', 'swim', 'tack', 'taco', 'tact',
-    'tail', 'take', 'tale', 'talk', 'tall', 'tame', 'tang', 'tank', 'tape', 'taps', 'tart', 'task', 'taut', 'taxi', 'teal', 'team', 'tear', 'tech', 'teen', 'tell',
-    'tend', 'tent', 'term', 'test', 'text', 'than', 'that', 'thaw', 'thee', 'them', 'then', 'they', 'thin', 'this', 'thou', 'thud', 'thug', 'thus', 'tick', 'tide',
-    'tidy', 'tier', 'tiff', 'tile', 'till', 'tilt', 'time', 'tiny', 'tire', 'toad', 'toil', 'told', 'toll', 'tomb', 'tome', 'tone', 'tong', 'took', 'tool', 'tops',
-    'tore', 'torn', 'toss', 'tote', 'tour', 'town', 'tram', 'trap', 'tray', 'tree', 'trek', 'trim', 'trio', 'trip', 'trot', 'troy', 'true', 'tsar', 'tube', 'tuck',
-    'tuna', 'tune', 'turf', 'turn', 'twin', 'type', 'tyre', 'ugly', 'undo', 'unit', 'unto', 'updo', 'upon', 'urge', 'urns', 'used', 'user', 'uses', 'wade', 'waft',
-    'wage', 'wail', 'wain', 'wait', 'wake', 'walk', 'wall', 'wand', 'wane', 'wank', 'want', 'ward', 'ware', 'warm', 'warn', 'warp', 'wart', 'wary', 'wash', 'wasp',
-    'watt', 'wave', 'wavy', 'waxy', 'ways', 'weak', 'wean', 'wear', 'weed', 'week', 'weep', 'weft', 'weld', 'well', 'welt', 'wend', 'went', 'wept', 'were', 'west',
-    'what', 'when', 'whey', 'whim', 'whip', 'whiz', 'whom', 'wick', 'wide', 'wife', 'wild', 'wile', 'will', 'wilt', 'wily', 'wimp', 'wind', 'wine', 'wing', 'wink',
-    'wipe', 'wire', 'wiry', 'wise', 'wish', 'wisp', 'with', 'woke', 'wolf', 'womb', 'wonk', 'wood', 'woof', 'wool', 'word', 'wore', 'work', 'worm', 'worn', 'wort',
-    'wove', 'wrap', 'wren', 'writ', 'yaks', 'yams', 'yang', 'yank', 'yaps', 'yard', 'yare', 'yarn', 'yawl', 'yawn', 'yaws', 'year', 'yell', 'yelp', 'yeti', 'yews',
-    'yips', 'yoga', 'yoke', 'yolk', 'your', 'yuca', 'yuck', 'yule', 'zags', 'zany', 'zaps', 'zero', 'zest', 'zeta', 'zigs', 'zinc', 'zips', 'zits', 'zone', 'zoom',
-    'zoos'
-    ];
+    'aced', 'aces', 'acid', 'acts', 'adds', 'aero', 'afro', 'aged', 'ages', 'ahem', 'aide', 'aids', 'ails', 'aims', 'airs',
+    'airy', 'akin', 'alap', 'alas', 'alay', 'alit', 'alky', 'alls', 'ally', 'aloe', 'alow', 'alps', 'also', 'alto', 'alts',
+    'alum', 'amen', 'amid', 'amps', 'anew', 'ante', 'ants', 'apes', 'apex', 'apps', 'apts', 'arch', 'arcs', 'area', 'aria',
+    'arid', 'aril', 'arks', 'arms', 'army', 'arow', 'arts', 'arty', 'asks', 'atom', 'atop', 'aunt', 'auto', 'avid', 'avow',
+    'away', 'awes', 'awls', 'awns', 'awry', 'axed', 'axel', 'axes', 'axis', 'ayes', 'babe', 'baby', 'back', 'bade', 'baft',
+    'bags', 'bail', 'bait', 'bake', 'bald', 'bale', 'balk', 'ball', 'balm', 'bams', 'band', 'bane', 'bang', 'bank', 'bans',
+    'baps', 'barb', 'bard', 'bare', 'barf', 'bark', 'barn', 'barp', 'bars', 'base', 'bash', 'bask', 'bass', 'bast', 'bath',
+    'bats', 'bauk', 'baur', 'bawl', 'bawn', 'bawr', 'bays', 'bead', 'beak', 'beam', 'bean', 'bear', 'beat', 'beau', 'beef',
+    'been', 'beep', 'beer', 'beet', 'begs', 'bell', 'bels', 'belt', 'bend', 'bene', 'beni', 'bent', 'berg', 'berk', 'berm',
+    'best', 'beta', 'beth', 'bets', 'beys', 'bias', 'bibs', 'bids', 'bien', 'bier', 'bigg', 'bigs', 'bike', 'bile', 'bill',
+    'bind', 'bine', 'bing', 'bink', 'bins', 'bios', 'bird', 'bish', 'bisk', 'bist', 'bite', 'bits', 'blew', 'blip', 'blob',
+    'bloc', 'blot', 'blow', 'blub', 'blue', 'blur', 'boar', 'boat', 'bobs', 'body', 'boil', 'bold', 'bole', 'bolt', 'bomb',
+    'bona', 'bond', 'bone', 'bong', 'bonk', 'bony', 'boob', 'book', 'boom', 'boon', 'boot', 'bops', 'bore', 'bosh', 'bosk',
+    'boss', 'both', 'bots', 'bows', 'boxy', 'boys', 'brad', 'brag', 'bran', 'bras', 'brat', 'bray', 'bree', 'brew', 'brig',
+    'bros', 'brow', 'buck', 'buds', 'buff', 'bugs', 'bulb', 'bulk', 'bull', 'bump', 'bums', 'bung', 'bunk', 'buns', 'bunt',
+    'burk', 'burn', 'burp', 'burs', 'bury', 'bush', 'busk', 'bust', 'busy', 'bute', 'buts', 'butt', 'byte', 'cabs', 'cade',
+    'cads', 'cafe', 'cage', 'cain', 'cake', 'calf', 'calk', 'call', 'calm', 'came', 'camo', 'camp', 'cane', 'cans', 'cant',
+    'cany', 'cape', 'caps', 'carb', 'card', 'care', 'carl', 'carn', 'cars', 'cart', 'casa', 'case', 'cash', 'cask', 'cast',
+    'cats', 'cauk', 'cave', 'caws', 'cell', 'celt', 'cent', 'cero', 'cert', 'chad', 'chap', 'char', 'chat', 'chef', 'chew',
+    'chic', 'choc', 'chop', 'chow', 'cids', 'cigs', 'cine', 'cion', 'cist', 'cite', 'city', 'clam', 'clan', 'clap', 'claw',
+    'clay', 'clef', 'clip', 'clod', 'clog', 'clop', 'clot', 'club', 'clue', 'coal', 'coat', 'cobb', 'cobs', 'coca', 'cock',
+    'coco', 'code', 'cods', 'coil', 'coin', 'coit', 'coke', 'cola', 'cold', 'cole', 'colt', 'coly', 'coma', 'comb', 'come',
+    'comm', 'comp', 'coms', 'cone', 'conk', 'cons', 'cook', 'cool', 'coom', 'coon', 'coop', 'coot', 'cope', 'cops', 'copy',
+    'cord', 'core', 'cork', 'corn', 'cory', 'cost', 'cots', 'cove', 'cowl', 'cows', 'crab', 'crag', 'cram', 'crap', 'craw',
+    'cray', 'crew', 'crib', 'crit', 'croc', 'crop', 'crow', 'cube', 'cubs', 'cues', 'cuff', 'cull', 'cult', 'cups', 'curb',
+    'curd', 'cure', 'curl', 'curs', 'curt', 'cush', 'cusp', 'cuss', 'cute', 'cuts', 'cyan', 'dabs', 'dack', 'dads', 'daft',
+    'dags', 'dale', 'dalt', 'dame', 'damp', 'dang', 'dank', 'darb', 'dare', 'darg', 'dark', 'darn', 'dart', 'dash', 'data',
+    'date', 'davy', 'dawd', 'dawn', 'days', 'dead', 'deaf', 'deal', 'dean', 'dear', 'debt', 'deck', 'deed', 'deem', 'deen',
+    'deep', 'deer', 'deet', 'deft', 'deli', 'dell', 'delt', 'demo', 'dent', 'deny', 'derm', 'desk', 'devs', 'dews', 'dewy',
+    'dial', 'dice', 'dick', 'died', 'dies', 'diet', 'diff', 'dike', 'dill', 'dime', 'dine', 'ding', 'dink', 'dino', 'dips',
+    'dire', 'dirk', 'dirt', 'disc', 'dish', 'disk', 'diss', 'diva', 'dive', 'divs', 'doat', 'dobs', 'dock', 'docs', 'does',
+    'dogs', 'dojo', 'dole', 'doll', 'dolt', 'dome', 'done', 'dong', 'dool', 'doom', 'doon', 'door', 'dope', 'dops', 'dopy',
+    'dore', 'dork', 'dorm', 'dorp', 'dorr', 'dory', 'dose', 'dote', 'doth', 'dots', 'dove', 'dowd', 'dowl', 'down', 'dows',
+    'doxy', 'drab', 'drag', 'drat', 'draw', 'drew', 'drib', 'drip', 'drop', 'drow', 'drug', 'drum', 'drys', 'duad', 'dual',
+    'dubs', 'duce', 'duck', 'duct', 'dude', 'duds', 'dued', 'duel', 'dues', 'duet', 'duff', 'dugs', 'duke', 'dule', 'dull',
+    'duly', 'dumb', 'dump', 'dune', 'dung', 'dunk', 'duos', 'dupe', 'dups', 'dure', 'durn', 'durr', 'dusk', 'dust', 'duty',
+    'dyed', 'dyer', 'dyes', 'dyne', 'each', 'eale', 'earl', 'earn', 'ears', 'ease', 'east', 'easy', 'eats', 'eaux', 'eave',
+    'ecos', 'ecus', 'eddy', 'edge', 'edgy', 'eels', 'eery', 'efts', 'eger', 'eggs', 'eggy', 'egis', 'egma', 'egos', 'eiks',
+    'elfs', 'elks', 'ells', 'elms', 'elmy', 'else', 'elts', 'emes', 'emeu', 'emma', 'emmy', 'emos', 'emus', 'emys', 'ends',
+    'enes', 'enew', 'engs', 'eons', 'epos', 'eras', 'ered', 'eres', 'erev', 'ergo', 'ergs', 'erns', 'eros', 'errs', 'erst',
+    'eses', 'esne', 'esse', 'ests', 'etas', 'etat', 'etch', 'eten', 'ethe', 'eths', 'even', 'ever', 'eves', 'evet', 'evoe',
+    'evos', 'ewes', 'ewks', 'ewts', 'exec', 'exed', 'exes', 'eyas', 'eyed', 'eyen', 'eyer', 'eyes', 'eyne', 'eyre', 'faan',
+    'faas', 'fabs', 'face', 'fact', 'fade', 'fads', 'fady', 'fahs', 'fail', 'fain', 'fair', 'faix', 'fake', 'fall', 'fame',
+    'fand', 'fane', 'fang', 'fank', 'fano', 'fans', 'fard', 'fare', 'farl', 'farm', 'faro', 'fars', 'fart', 'fash', 'fast',
+    'fate', 'fats', 'faun', 'faur', 'faut', 'faux', 'fava', 'fave', 'fawn', 'faws', 'fays', 'feal', 'fear', 'feat', 'feds',
+    'feed', 'feel', 'feen', 'feer', 'fees', 'feet', 'fegs', 'feis', 'fell', 'felt', 'feme', 'fems', 'fend', 'feni', 'fens',
+    'fent', 'fere', 'ferm', 'fern', 'fess', 'fest', 'feta', 'fete', 'fets', 'fett', 'feud', 'feys', 'fiar', 'fiat', 'fibs',
+    'fice', 'fico', 'fido', 'fids', 'fief', 'fier', 'fife', 'fifi', 'figo', 'figs', 'fila', 'file', 'fill', 'film', 'filo',
+    'fils', 'find', 'fine', 'fini', 'fink', 'fino', 'fins', 'fire', 'firm', 'firn', 'firs', 'fisc', 'fish', 'fisk', 'fist',
+    'fits', 'fitt', 'five', 'flab', 'flag', 'flak', 'flam', 'flan', 'flap', 'flat', 'flaw', 'flax', 'flay', 'flea', 'fled',
+    'flee', 'fleg', 'flew', 'flex', 'flic', 'flim', 'flip', 'flit', 'flix', 'floc', 'floe', 'flog', 'flop', 'flor', 'flow',
+    'flub', 'flue', 'flus', 'flux', 'foal', 'foam', 'fobs', 'foes', 'fogs', 'fogy', 'foil', 'foin', 'fold', 'folk', 'fond',
+    'fone', 'fons', 'font', 'food', 'fool', 'foot', 'fops', 'ford', 'fore', 'fork', 'form', 'fort', 'foss', 'foul', 'four',
+    'fowl', 'foxy', 'foys', 'frat', 'fray', 'free', 'fret', 'frig', 'frog', 'from', 'fros', 'fubs', 'fuds', 'fuel', 'full',
+    'fume', 'fums', 'fund', 'fung', 'funk', 'funs', 'furl', 'furr', 'furs', 'fury', 'fuse', 'fuss', 'gabs', 'gads', 'gaga',
+    'gage', 'gags', 'gain', 'gait', 'gala', 'gale', 'gall', 'gals', 'gama', 'game', 'gams', 'gane', 'gang', 'gans', 'gant',
+    'gape', 'gaps', 'garb', 'gare', 'gash', 'gasp', 'gast', 'gate', 'gave', 'gawd', 'gawk', 'geal', 'gear', 'geck', 'geds',
+    'geek', 'geld', 'gels', 'gelt', 'gems', 'gena', 'gene', 'gens', 'gent', 'geos', 'germ', 'gert', 'gets', 'ghee', 'gibs',
+    'gids', 'gied', 'gift', 'gigs', 'gild', 'gill', 'gilt', 'gimp', 'gins', 'gird', 'girl', 'girt', 'gist', 'gits', 'give',
+    'glad', 'glam', 'glee', 'glen', 'glib', 'glim', 'glit', 'glob', 'glop', 'glow', 'glue', 'glum', 'gnar', 'gnat', 'gnaw',
+    'goad', 'goal', 'goat', 'gobs', 'gods', 'goer', 'goes', 'gold', 'golf', 'gone', 'gong', 'gonk', 'good', 'goof', 'goon',
+    'goop', 'gore', 'gorp', 'gosh', 'goth', 'gout', 'gown', 'grab', 'grad', 'gram', 'gran', 'gray', 'grew', 'grey', 'grid',
+    'grim', 'grin', 'grip', 'grit', 'grog', 'grot', 'grow', 'grub', 'guar', 'gulf', 'gulp', 'gump', 'gunk', 'guns', 'gush',
+    'gust', 'guts', 'guys', 'gyro', 'hack', 'hads', 'hags', 'hail', 'hair', 'hale', 'half', 'hall', 'halo', 'halt', 'hams',
+    'hand', 'hang', 'hank', 'haps', 'hard', 'hare', 'hark', 'harm', 'harp', 'hart', 'hash', 'hast', 'hate', 'hath', 'hats',
+    'haul', 'have', 'hawk', 'hays', 'head', 'heal', 'heap', 'hear', 'heat', 'heed', 'heel', 'heft', 'heir', 'held', 'helm',
+    'help', 'hems', 'hens', 'herb', 'herd', 'here', 'hero', 'hers', 'hide', 'high', 'hike', 'hill', 'hims', 'hind', 'hins',
+    'hint', 'hips', 'hire', 'hiss', 'hits', 'hive', 'hock', 'hogs', 'hold', 'hole', 'holt', 'holy', 'home', 'hong', 'honk',
+    'hood', 'hoof', 'hook', 'hoop', 'hoot', 'hope', 'hops', 'horn', 'hose', 'hoss', 'host', 'hots', 'hour', 'howl', 'hubs',
+    'huck', 'huff', 'huge', 'hugs', 'hula', 'hulk', 'hull', 'hums', 'hung', 'hunk', 'huns', 'hunt', 'hurl', 'hurt', 'hush',
+    'husk', 'huts', 'hype', 'hypo', 'iced', 'ices', 'icky', 'idea', 'ides', 'ills', 'imps', 'inch', 'inks', 'inky', 'inns',
+    'ions', 'iris', 'irks', 'itch', 'item', 'jabs', 'jack', 'jade', 'jags', 'jail', 'jake', 'jamb', 'jams', 'jane', 'jars',
+    'java', 'jaws', 'jays', 'jean', 'jeep', 'jeer', 'jeff', 'jess', 'jest', 'jets', 'jibb', 'jibs', 'jiff', 'jigs', 'jill',
+    'jilt', 'jimp', 'jinx', 'jive', 'jobs', 'jock', 'joes', 'joey', 'jogs', 'john', 'join', 'joke', 'jolt', 'josh', 'joss',
+    'jots', 'jour', 'jowl', 'joys', 'judo', 'judy', 'jugs', 'juke', 'jump', 'junk', 'jury', 'just', 'jute', 'juts', 'kade',
+    'kale', 'kane', 'kara', 'kava', 'keds', 'keel', 'keen', 'keep', 'kegs', 'kelp', 'kelt', 'kemp', 'kent', 'kept', 'keto',
+    'keys', 'khan', 'kick', 'kids', 'kiln', 'kilo', 'kilt', 'kind', 'king', 'kink', 'kins', 'kirk', 'kiss', 'kite', 'kits',
+    'knap', 'knee', 'knew', 'knit', 'knob', 'knot', 'know', 'konk', 'kook', 'kris', 'kyle', 'labs', 'lace', 'lack', 'lacy',
+    'lads', 'lady', 'lags', 'laid', 'lain', 'lair', 'lake', 'lama', 'lamb', 'lame', 'lamp', 'land', 'lane', 'lank', 'laps',
+    'lard', 'lark', 'lars', 'lash', 'lass', 'last', 'late', 'lath', 'laud', 'lava', 'lawn', 'lays', 'lead', 'leaf', 'leak',
+    'lean', 'leap', 'lear', 'leed', 'leek', 'leer', 'lees', 'left', 'legs', 'leis', 'lend', 'leno', 'lens', 'lent', 'lept',
+    'less', 'lest', 'lets', 'leud', 'liar', 'lice', 'lick', 'lids', 'lied', 'lief', 'lien', 'lier', 'lies', 'lieu', 'life',
+    'lift', 'like', 'lilo', 'lily', 'lima', 'limb', 'lime', 'limo', 'limp', 'line', 'link', 'lint', 'lion', 'lipo', 'lips',
+    'lire', 'lisp', 'list', 'lite', 'lits', 'live', 'load', 'loaf', 'loan', 'lobe', 'lobs', 'loca', 'loch', 'lock', 'loco',
+    'loft', 'loge', 'logo', 'logs', 'loin', 'lone', 'long', 'loof', 'look', 'loom', 'loon', 'loop', 'loot', 'lord', 'lore',
+    'lorn', 'lose', 'loss', 'lost', 'lots', 'loud', 'love', 'luau', 'luck', 'lude', 'luge', 'lugs', 'luke', 'lull', 'lulu',
+    'lump', 'luna', 'lune', 'lung', 'lure', 'lurk', 'lush', 'lust', 'lute', 'luxe', 'lyme', 'lyre', 'mace', 'mach', 'mack',
+    'magi', 'maid', 'mail', 'maim', 'main', 'make', 'male', 'mall', 'malt', 'mama', 'mane', 'mani', 'many', 'maps', 'marc',
+    'mare', 'mark', 'mars', 'mart', 'mary', 'masa', 'mase', 'mash', 'mask', 'mass', 'mast', 'mate', 'math', 'mats', 'matt',
+    'maud', 'maul', 'maxi', 'maya', 'mayo', 'mead', 'meal', 'mean', 'meat', 'meds', 'meek', 'meer', 'mega', 'mein', 'meld',
+    'melt', 'meme', 'memo', 'mend', 'menu', 'mere', 'mesa', 'mesh', 'mess', 'meta', 'meth', 'mets', 'mice', 'mick', 'midi',
+    'mids', 'mien', 'miff', 'mike', 'mild', 'mile', 'milk', 'mill', 'milo', 'mime', 'mina', 'mind', 'mine', 'mini', 'mink',
+    'mint', 'minx', 'mire', 'mise', 'miso', 'miss', 'mist', 'mite', 'mitt', 'mobs', 'mock', 'mode', 'mods', 'mojo', 'mold',
+    'mole', 'molt', 'moms', 'mona', 'monk', 'mono', 'mood', 'moon', 'moor', 'moot', 'mope', 'mops', 'mora', 'more', 'mosh',
+    'moss', 'most', 'moth', 'mott', 'move', 'mows', 'much', 'muck', 'muff', 'mugs', 'mule', 'mull', 'mump', 'mums', 'mumu',
+    'murk', 'muse', 'mush', 'musk', 'must', 'mute', 'mutt', 'myth', 'naan', 'nada', 'nags', 'nail', 'nala', 'name', 'nana',
+    'napa', 'nape', 'naps', 'nard', 'navy', 'neal', 'near', 'neat', 'neck', 'need', 'neon', 'nerd', 'nest', 'nets', 'news',
+    'newt', 'next', 'nibs', 'nice', 'nick', 'nine', 'nite', 'nits', 'noah', 'nobs', 'node', 'nods', 'nona', 'none', 'nook',
+    'noon', 'nope', 'norm', 'nose', 'nosh', 'nosy', 'note', 'noun', 'nova', 'nubs', 'nuke', 'null', 'numb', 'nuns', 'nuts',
+    'oaks', 'oars', 'oath', 'oats', 'odds', 'odes', 'oils', 'oily', 'oink', 'omen', 'ones', 'only', 'oops', 'open', 'opts',
+    'opus', 'orbs', 'orca', 'orcs', 'ores', 'ouch', 'ours', 'oust', 'outs', 'oven', 'over', 'ower', 'owes', 'owls', 'owns',
+    'oxen', 'oxes', 'pace', 'pack', 'pact', 'pads', 'page', 'paid', 'pail', 'pain', 'pair', 'pale', 'pall', 'palm', 'pals',
+    'pane', 'pang', 'pans', 'pant', 'papa', 'pape', 'paps', 'para', 'pare', 'park', 'parr', 'pars', 'part', 'pass', 'past',
+    'pate', 'path', 'pats', 'paul', 'pave', 'pawn', 'paws', 'pays', 'peak', 'pear', 'peas', 'peat', 'peck', 'pecs', 'peds',
+    'peed', 'peek', 'peel', 'peep', 'peer', 'pees', 'pegs', 'pelt', 'pend', 'pens', 'peon', 'perk', 'perm', 'peso', 'pest',
+    'pets', 'pews', 'phew', 'pica', 'pick', 'pics', 'pier', 'pies', 'pigs', 'pike', 'pile', 'pill', 'pine', 'ping', 'pink',
+    'pins', 'pint', 'pipe', 'pita', 'pith', 'pits', 'pity', 'plan', 'play', 'plea', 'pled', 'plop', 'plot', 'plow', 'ploy',
+    'plug', 'plum', 'plus', 'pods', 'poem', 'poet', 'pogo', 'poke', 'poky', 'pole', 'polk', 'poll', 'polo', 'poly', 'pomp',
+    'poms', 'pond', 'pong', 'pons', 'pony', 'pood', 'poof', 'pooh', 'pool', 'poor', 'poot', 'pope', 'pops', 'pore', 'pork',
+    'port', 'pose', 'posh', 'post', 'posy', 'pots', 'pouf', 'pour', 'pout', 'pray', 'prep', 'prey', 'prim', 'prod', 'prom',
+    'prop', 'pros', 'pubs', 'puce', 'puck', 'puff', 'pugs', 'puke', 'pull', 'pulp', 'puma', 'pump', 'punk', 'puns', 'punt',
+    'pups', 'pure', 'purr', 'push', 'puts', 'putt', 'pyre', 'pyro', 'quad', 'quay', 'quid', 'quip', 'quit', 'race', 'rack',
+    'racy', 'raff', 'raft', 'rage', 'rags', 'raid', 'rail', 'rain', 'rake', 'ramp', 'rand', 'rang', 'rank', 'rant', 'raps',
+    'rare', 'rash', 'rast', 'rate', 'rats', 'rave', 'rays', 'read', 'real', 'ream', 'reap', 'rear', 'redo', 'reed', 'reef',
+    'reel', 'refs', 'rein', 'rend', 'rent', 'repo', 'reps', 'rest', 'rhea', 'ribs', 'rice', 'rich', 'rick', 'ride', 'rids',
+    'rife', 'riff', 'rift', 'rigs', 'rile', 'rims', 'rind', 'rine', 'ring', 'rink', 'riot', 'ripe', 'rips', 'rise', 'risk',
+    'rite', 'road', 'roam', 'roar', 'robs', 'rock', 'rode', 'rods', 'role', 'roll', 'roma', 'romp', 'roof', 'rook', 'room',
+    'root', 'rope', 'rose', 'rosy', 'rote', 'roto', 'rove', 'rows', 'rube', 'rubs', 'ruby', 'ruck', 'rudd', 'rude', 'ruff',
+    'rugs', 'ruin', 'rule', 'rume', 'rump', 'rums', 'rung', 'runs', 'runt', 'ruse', 'rush', 'rust', 'ruth', 'ruts', 'sack',
+    'sacs', 'sade', 'safe', 'saga', 'sage', 'sags', 'said', 'sail', 'sake', 'saki', 'salt', 'same', 'sand', 'sane', 'sang',
+    'sank', 'sans', 'saps', 'sari', 'sars', 'sash', 'sass', 'saul', 'save', 'saws', 'says', 'scab', 'scam', 'scan', 'scar',
+    'scat', 'scot', 'scud', 'scum', 'seal', 'seam', 'sean', 'sear', 'seas', 'seat', 'sect', 'seed', 'seek', 'seen', 'seep',
+    'seer', 'sees', 'seis', 'self', 'sell', 'send', 'sent', 'sept', 'serf', 'sess', 'sets', 'sewn', 'sews', 'sham', 'shaw',
+    'shea', 'shed', 'shim', 'shin', 'ship', 'shod', 'shoe', 'shoo', 'shop', 'shot', 'show', 'shun', 'shut', 'sick', 'sics',
+    'sift', 'sigh', 'sign', 'silk', 'sill', 'silo', 'silt', 'sing', 'sink', 'sins', 'sips', 'sire', 'siri', 'sirs', 'site',
+    'sith', 'sits', 'skat', 'skid', 'skim', 'skin', 'skip', 'skis', 'skit', 'slab', 'slag', 'slam', 'slap', 'slat', 'slaw',
+    'slay', 'sled', 'slew', 'slid', 'slim', 'slip', 'slit', 'slob', 'slop', 'slot', 'slow', 'slug', 'slum', 'slur', 'smog',
+    'smug', 'smut', 'snag', 'snap', 'snob', 'snot', 'snow', 'snug', 'soak', 'soap', 'soar', 'sobs', 'sock', 'soda', 'sofa',
+    'soft', 'soil', 'soke', 'sold', 'sole', 'solo', 'some', 'song', 'sons', 'soon', 'soop', 'soot', 'sora', 'sord', 'sore',
+    'sorn', 'sort', 'soul', 'soup', 'sour', 'sown', 'sows', 'spam', 'span', 'spar', 'spas', 'spat', 'spec', 'spew', 'spin',
+    'spit', 'spot', 'spud', 'spug', 'spun', 'spur', 'stab', 'stag', 'star', 'stat', 'stay', 'stem', 'sten', 'step', 'stew',
+    'stim', 'stir', 'stop', 'stow', 'stub', 'stud', 'stum', 'stun', 'suba', 'subs', 'such', 'suck', 'sued', 'sues', 'suet',
+    'suit', 'sulk', 'sump', 'sung', 'sunk', 'suns', 'supe', 'sups', 'sure', 'surf', 'swab', 'swag', 'swam', 'swan', 'swap',
+    'swat', 'sway', 'swig', 'swim', 'swob', 'swop', 'tabs', 'tace', 'tach', 'tack', 'taco', 'tact', 'tads', 'tael', 'taes',
+    'tags', 'tail', 'tain', 'tait', 'take', 'tale', 'talk', 'tall', 'tame', 'tamp', 'tams', 'tang', 'tank', 'tans', 'taos',
+    'tape', 'taps', 'tara', 'tare', 'tarn', 'taro', 'tarp', 'tart', 'task', 'tate', 'taut', 'taxi', 'tead', 'teak', 'teal',
+    'team', 'tear', 'teat', 'tech', 'teds', 'tedy', 'teen', 'teer', 'tees', 'teil', 'tell', 'temp', 'tend', 'tens', 'tent',
+    'terf', 'term', 'test', 'text', 'than', 'that', 'thaw', 'thee', 'them', 'then', 'they', 'thin', 'this', 'thud', 'thug',
+    'thus', 'tick', 'tics', 'tide', 'tidy', 'tied', 'tier', 'ties', 'tike', 'tiki', 'tile', 'till', 'tils', 'tilt', 'time',
+    'tind', 'tine', 'tink', 'tins', 'tint', 'tiny', 'tips', 'tire', 'tits', 'toad', 'toby', 'tock', 'tods', 'toed', 'toes',
+    'toft', 'tofu', 'toga', 'togs', 'toil', 'toke', 'told', 'tole', 'toll', 'tomb', 'tome', 'toms', 'tone', 'tong', 'tonk',
+    'tons', 'tony', 'took', 'tool', 'toom', 'toon', 'toot', 'tope', 'tops', 'tora', 'torc', 'tore', 'tori', 'torn', 'toro',
+    'tors', 'tort', 'tory', 'tosh', 'toss', 'tost', 'tote', 'tots', 'tour', 'town', 'tows', 'toys', 'tram', 'trap', 'tray',
+    'tree', 'trek', 'tres', 'trew', 'trey', 'trim', 'trio', 'trip', 'trod', 'trog', 'trow', 'troy', 'true', 'tuba', 'tube',
+    'tubs', 'tuck', 'tuff', 'tugs', 'tule', 'tump', 'tums', 'tuna', 'tund', 'tune', 'tung', 'tuns', 'tups', 'turd', 'turf',
+    'turk', 'turn', 'tush', 'tusk', 'tuts', 'tutu', 'twas', 'twat', 'twig', 'twin', 'twit', 'twos', 'tyde', 'tyke', 'type',
+    'typo', 'tyre', 'tyro', 'tyte', 'ulex', 'ulus', 'umps', 'unis', 'unit', 'urns', 'used', 'user', 'uses', 'vacs', 'vade',
+    'vaes', 'vags', 'vail', 'vain', 'vale', 'vamp', 'vane', 'vang', 'vans', 'vars', 'vary', 'vasa', 'vase', 'vast', 'vats',
+    'vaus', 'vaut', 'veal', 'veep', 'veer', 'vega', 'veil', 'vein', 'veld', 'vend', 'vent', 'vera', 'verb', 'verd', 'vert',
+    'very', 'vest', 'veto', 'vets', 'vext', 'viae', 'vias', 'vibe', 'vice', 'vide', 'vids', 'vied', 'vier', 'vies', 'view',
+    'vild', 'vile', 'vill', 'vine', 'vino', 'vins', 'vint', 'virl', 'visa', 'vise', 'vita', 'vivo', 'vola', 'vole', 'volk',
+    'volt', 'vote', 'vows', 'wabs', 'wack', 'wade', 'wads', 'waes', 'waff', 'waft', 'wage', 'wags', 'waif', 'wail', 'wain',
+    'wait', 'wake', 'wald', 'wale', 'walk', 'wall', 'wand', 'wane', 'wank', 'wans', 'want', 'waps', 'ward', 'ware', 'wark',
+    'warm', 'warp', 'wars', 'wart', 'wary', 'wase', 'wash', 'wasp', 'wate', 'wats', 'watt', 'wauk', 'waul', 'waur', 'wave',
+    'wavy', 'waxy', 'ways', 'weak', 'weal', 'wean', 'wear', 'webs', 'weed', 'week', 'weep', 'weld', 'welk', 'well', 'welt',
+    'wend', 'went', 'wept', 'were', 'wert', 'west', 'wets', 'wham', 'whap', 'what', 'when', 'whew', 'whey', 'whip', 'whir',
+    'whys', 'wick', 'wide', 'wife', 'wigs', 'wild', 'wile', 'will', 'wilt', 'wimp', 'wind', 'wine', 'wing', 'wink', 'wipe',
+    'wire', 'wise', 'wish', 'wisp', 'with', 'wits', 'wock', 'woke', 'wold', 'wolf', 'womb', 'wonk', 'wont', 'wood', 'woof',
+    'woon', 'woot', 'word', 'wore', 'work', 'worm', 'worn', 'wove', 'wrap', 'wren', 'writ', 'wuss', 'yack', 'yags', 'yale',
+    'yams', 'yank', 'yaps', 'yard', 'yarn', 'yate', 'yawn', 'yeah', 'year', 'yeed', 'yeld', 'yelk', 'yell', 'yelp', 'yeps',
+    'yews', 'yike', 'yipe', 'yips', 'yirk', 'yite', 'yode', 'yoga', 'yogi', 'yoke', 'yold', 'yolk', 'yond', 'yore', 'york',
+    'your', 'yous', 'yowl', 'yuca', 'yuck', 'yugs', 'yuke', 'yule', 'yump', 'yups', 'yurt'
+    ]
 }
 
 // sets dictionary array to a list of 5 letter words
@@ -686,6 +864,9 @@ function enterKeyDown(event) {
     var userInput = userInputBox.value.toLowerCase();  
     var lastWord = oldInputLabelI.textContent.toLowerCase();
 
+    // plays click sound 
+    playSound(clickSound);
+
     // Logs for readability and debugging
     console.log(
       // gives what user inputted and what the last input was
@@ -723,7 +904,7 @@ function endGame () {
   messageLabel.style.color = incorrectcolor; 
   messageLabel.style.opacity = 1
 
-
+  playSound(gameoverSound);
   
   // after displaying game over 
   // tests for a new highscore and if there is it pulls up the highscore div 
@@ -735,6 +916,9 @@ function endGame () {
       // shows high score div and hides the play screen
       show(highscoreDiv, 'moveUp');
       hide(playDiv, 'moveDown');
+
+      // plays highscore sound
+      playSound(highscoreSound);
 
       // logs new highscore
       console.log("new highscore");
@@ -787,6 +971,9 @@ function updateScore() {
   // sets highscore score label to current score
   highscoreLabel.textContent = score;
 
+  // plays ding sound when player scores
+  playSound(correctSound);
+
   // gets positive message
   positiveMessage();
 }
@@ -798,6 +985,9 @@ function updateAttempts() {
   // decreases attempts by one and then sets the label to how many attempts are left
   attempts--;
   attemptsLabel.textContent = str.repeat(attempts);
+
+  // plays wrong sound
+  playSound(wrongSound);
 
   // brings attention to userinput to show that they were wrong
   userInputBox.style.transition = "all .5s";
@@ -1039,9 +1229,5 @@ function insertScore(score) {
 }
 
 // #endregion
-
-
-
-
 
 
