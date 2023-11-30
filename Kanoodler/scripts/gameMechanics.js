@@ -232,11 +232,13 @@ function touchMovement(event) {
     currentX = parseInt(pieceBoard.style.left);
     currentY = parseInt(pieceBoard.style.bottom);
 
-    document.addEventListener('touchmove', movePiece);
+    document.addEventListener('touchmove', movePiece, { passive: false});
 }
 
 // is called whenever mouse/touch moves on the screen
 function movePiece(event) {
+    event.preventDefault();
+    
     const touchEvent = event.touches ? event.touches[0] : event;
 
     // Finds distance between original click point and new mouse position, then adds value to the piece's position
@@ -271,7 +273,6 @@ function pieceRelease(event) {
     
     
     if (onBoard==1) {
-        console.log(onBoard);
         // add snap to board logic function here
     } else {
         pieceBoard.style.bottom = 0+"px";
