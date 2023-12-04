@@ -11,8 +11,8 @@ for (var i = 1; i <=5; i++) {
     var row = document.querySelector(`#game-hole-row-${i}`)
     for (var j = 1; j <=11;j++) {
         var hole = document.createElement("div");
-        hole.className = "hole";
-        hole.id = "game-hole-"+j+"-"+i;
+        hole.className = `hole r${i}`;
+        hole.id = `c${j}`;
 
         row.appendChild(hole);
     }
@@ -20,23 +20,7 @@ for (var i = 1; i <=5; i++) {
 
 var overlayGameBoard = document.querySelector(".game-overlay");
 
-// creates overlay of holes on game board
-for (var i = 1; i <=5; i++) {
-    var holeRow = document.createElement("div");
 
-    holeRow.className = "game-overlay-hole-row";
-    holeRow.id = "game-overlay-hole-row-"+i;
-    
-    overlayGameBoard.appendChild(holeRow);
-    var row = document.querySelector(`#game-overlay-hole-row-${i}`)
-    for (var j = 1; j <=11;j++) {
-        var hole = document.createElement("div");
-        hole.className = `hole game-overlayr${i}`;
-        hole.id = `c${j}`;
-
-        row.appendChild(hole);
-    }
-}
 
 var pieceBoard = document.querySelector(".piece-holes");
 

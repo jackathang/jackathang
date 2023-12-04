@@ -1,3 +1,10 @@
+// Kanoodle button
+const kanoodleButton = document.querySelector("#title")
+
+kanoodleButton.addEventListener("click", function() {
+    window.location.href = window.location.href;
+})
+
 // Selects Piece
 const colorElements = document.querySelectorAll('.color-selection');
 const numOfElements = colorElements.length;
@@ -82,18 +89,22 @@ var selectedPiece = '';
 function selectColor() {
     selectedPiece = this.id;
     drawPiece(pieces[selectedPiece],selectedPiece);
+    
+}
+
+function resetPiece() {
+    pieceBoard.style.display = "none";
+    pieceOverlayHoles.forEach(function(hole) {
+        hole.style.backgroundColor = "var(--transparent)";  
+        hole.classList.remove("piece-object");
+    })
+    pieceBoard.style.display = "unset";
 }
 
 // displays piece
 function drawPiece(piece,color) {
     // resets board
-    for (i=1;i<=4;i++) {
-        for (let j = 1; j <= 4; j++) {
-            var hole = document.querySelector(`.overlayr${i}#c${j}`);
-            hole.style.backgroundColor = "var(--transparent)";  
-            hole.classList.remove("piece-object");
-        }
-    }
+    resetPiece()
 
     // draws piece
     for (i=0;i<piece.length;i++){
@@ -199,16 +210,25 @@ flipButton.addEventListener("click", flip)
 
 // Draggin functionality of Pieces
 
-var pieceHoles = document.querySelectorAll(".overlay-hole-row .hole");
-var gameHoles = document.querySelectorAll(".game-overlay-hole-row .hole") ;
+// overlays' holes
+var pieceOverlayHoles = document.querySelectorAll(".overlay-hole-row .hole");
+var gameOverlayHoles = document.querySelectorAll(".game-overlay-hole-row .hole") ;
+// boards' holes
+var pieceBoardHoles = document.querySelectorAll(".piece-hole-row .hole");
+var gameBoardHoles = document.querySelectorAll(".game-hole-row .hole");
 
+//  boards
 var pieceBoard = document.querySelector(".overlay");
+var gameBoard = document.querySelector("#game-board");
+
+// moving piece original position
 var currentX = parseInt(pieceBoard.style.left);
 var currentY = parseInt(pieceBoard.style.bottom); 
 
 
 // deals with logic behind moving the piece
 function mouseMovement(event) {
+    resizePiece(pieceBoardHoles[0].offsetWidth)
     // mouse original click
     initX = event.clientX;
     initY = event.clientY;
@@ -223,6 +243,7 @@ function mouseMovement(event) {
 
 // touchscreen movement
 function touchMovement(event) {
+    resizePiece(pieceBoardHoles[0].offsetWidth);
     const touchEvent = event.touches ? event.touches[0] : event;
     // touch original click
     initX = touchEvent.clientX;
@@ -245,53 +266,115 @@ function movePiece(event) {
     const x = currentX + (touchEvent.clientX - initX);
     const y = currentY + (initY - touchEvent.clientY);
     
-
     pieceBoard.style.bottom = y+"px";
     pieceBoard.style.left = x+"px";
+}
 
+// resizes the moving piece
+function resizePiece(size) {
+    if (size == pieceBoardHoles[0].offsetWidth) {
+        for (i=0;i<pieceOverlayHoles.length;i++) {
+            pieceOverlayHoles[i].style.width = `${gameBoardHoles[0].offsetWidth}px`
+        }
+    } else if (size == gameBoardHoles[0].offsetWidth){ 
+        for (i=0;i<pieceOverlayHoles.length;i++) {
+            pieceOverlayHoles[i].style.width = `${pieceBoardHoles[0].offsetWidth}px`
+        }      
+    }
+
+    pieceBoard.style.width = "fit-content";
+    pieceBoard.style.height = "fit-content";
 }
 
 // function when piece is released
 function pieceRelease(event) {
     const touchEvent = event.changedTouches ? event.changedTouches[0] : event;
-    let onBoard = 0;
 
-    // checks whether or not release position is over any gameboard piece
-    // checks all game board piecesm so need to return true for if any
-    gameHoles.forEach(function(element) {
-        var rect = element.getBoundingClientRect();
-        if (
-            touchEvent.clientX >= rect.left &&
-            touchEvent.clientX <= rect.right &&
-            touchEvent.clientY >= rect.top &&
-            touchEvent.clientY <= rect.bottom
-        ) {
-            onBoard += 1;
-        } else {
+    let onBoard = 0;
+    let totalPiece = 0
+    
+    let filledHoles = [];
+    gameBoardBoundingBox = gameBoard.getBoundingClientRect()
+
+    // figures out what holes on the board the piece is over
+    pieceOverlayHoles.forEach(function(element) {
+        // checks if every piece-object is on board 
+        if (element.classList[2] == 'piece-object') {
+            totalPiece += 1
+            var pieceBoundingBox = element.getBoundingClientRect();
+            if (
+                // if the pieces are on the board
+                gameBoardBoundingBox.left <= pieceBoundingBox.left &&
+                gameBoardBoundingBox.right >= pieceBoundingBox.right &&
+                gameBoardBoundingBox.bottom >= pieceBoundingBox.bottom &&
+                gameBoardBoundingBox.top <= pieceBoundingBox.top 
+            ) {
+                // updates total pieces on board
+                onBoard += 1
+                // figures out hole the piece segment is over
+                let holePadding = gameBoardHoles[0].offsetWidth*.5;
+                gameBoardHoles.forEach(function(gameHole) {
+                    var gameBoardHoleBoundingBox = gameHole.getBoundingClientRect();
+                    if (
+                        gameBoardHoleBoundingBox.left - holePadding <= pieceBoundingBox.left &&
+                        gameBoardHoleBoundingBox.right + holePadding >= pieceBoundingBox.right &&
+                        gameBoardHoleBoundingBox.bottom + holePadding >= pieceBoundingBox.bottom &&
+                        gameBoardHoleBoundingBox.top - holePadding <= pieceBoundingBox.top 
+                    ) {
+                        filledHoles.push(gameHole);                                   
+                    }
+                })
+            }
+       }
+    })
+
+    const hasPiece = Array.from(filledHoles).some(element => element.classList.contains('piece-object')); // Replace 'your-class' with the class you're checking for
+    
+    // only copies the piece onto board when;
+    // all pieces are on the board
+    // all pieces are not ontop of another piece
+    if (onBoard>=totalPiece && !hasPiece) {
+        for (i=0;i<filledHoles.length;i++) {
+            filledHoles[i].style.backgroundColor = `var(--piece-${selectedPiece}`;
+            filledHoles[i].classList.add("piece-object");
         }
-    });
-    
-    
-    if (onBoard==1) {
-        // add snap to board logic function here
-    } else {
-        pieceBoard.style.bottom = 0+"px";
-        pieceBoard.style.left = 0+"px";
-        
+        resetPiece();  
+        test();
     }
+    resizePiece(gameBoardHoles[0].offsetWidth);
+    pieceBoard.style.bottom = 0+"px";
+    pieceBoard.style.left = 0+"px";
 
 }
 
+function test() {
+    const pieceValue = Object.keys(pieces).indexOf(selectedPiece)
+    colorElements[pieceValue].removeEventListener("click",selectColor);
+    colorElements[pieceValue].classList.add("disabled");
 
-// adds event lister to pieces
-for (i=0;i<pieceHoles.length;i++) {
+}
 
-    let element = pieceHoles[i]
+// gets x,y values of event
+// used to get coords of piece when clicked and released
+function getCoordinates(element) {
+    x = parseInt(element.id.match(/\d+/)[0])
+    y = parseInt(element.classList[1].match(/\d+/)[0])
+    return [x,y];
+}
+
+
+
+
+// Functionality for when mouse is clicked, dragged, and released
+for (i=0;i<pieceOverlayHoles.length;i++) {
+
+    let element = pieceOverlayHoles[i]
 
     // when pressed down; run respective movement function depending on screen only if it's a colored piece;
     element.addEventListener('mousedown', (event) => {
         if (element.classList[2] == 'piece-object') {
             mouseMovement(event);
+            // console.log(getCoordinates(event.target));
         }
     })
     element.addEventListener('touchstart', (event) => {
@@ -305,9 +388,15 @@ for (i=0;i<pieceHoles.length;i++) {
     element.addEventListener('mouseup', (event) => {
         document.removeEventListener('mousemove', movePiece);
         pieceRelease(event);
+        
     })
     element.addEventListener('touchend', (event) => {
         document.removeEventListener('touchmove', movePiece);
         pieceRelease(event);
     })
 }
+
+
+
+// only one piece at a time
+// styling buttons for when piece is already on the board
