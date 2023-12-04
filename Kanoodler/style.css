@@ -104,7 +104,7 @@ footer{
     color:var(--white);
     text-shadow: -4px 4px 4px rgba(0,0,0,0.25);
     font-weight: 400;
-    font-size: 6.25vw;
+    font-size: 8.25vw;
     text-transform:uppercase;
     padding-bottom: 1vh;
 }
@@ -227,13 +227,18 @@ footer{
 .piece-control-button {
     height: 80%;
     width:27%;
-    background: #314d69;
-    color: var(--white);
-    fill: var(--white);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     text-shadow: -4px 4px 4px rgba(0,0,0,0.25);
+
+    background: #314d69;
     border-radius: 10px;
     border:0;
     box-shadow: -4px 4px 4px rgba(0,0,0,0.25);
+
     transition: ease-out 0.15s;
 }
 .piece-control-button:hover {
@@ -242,6 +247,10 @@ footer{
     box-shadow: var(--selected);
 }
 
+svg{
+    fill: var(--white);
+    width: 50%;
+}
 /* color bar */
 #color-bar{
     width:100%;
@@ -347,7 +356,7 @@ footer{
 
 /* larger screens */
 @media (min-width:580px) {
-    h1, h2, #help{
+    h1, h2, #help,#title{
         font-size: 36px;
     }
 }
