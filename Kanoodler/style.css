@@ -6,7 +6,7 @@
     --white:#fff;
 
     --piece-gray:#B5BCCC;
-    --piece-white:#d3cccc;
+    --piece-white:#f1f1f1;
     --piece-peach:#f8d7db;
     --piece-pink:#fd7ac6;
     --piece-red:#C80F17;
@@ -99,6 +99,14 @@ footer{
 
 #title{
     width: 45vw;
+    display: flex;
+    font-family: 'Monomaniac One',monospace,'Arial Narrow Bold', sans-serif;
+    color:var(--white);
+    text-shadow: -4px 4px 4px rgba(0,0,0,0.25);
+    font-weight: 400;
+    font-size: 6.25vw;
+    text-transform:uppercase;
+    padding-bottom: 1vh;
 }
 
 #level{
@@ -118,7 +126,7 @@ footer{
 
 }
 
-#help:hover{
+#help:hover,#title:hover{
     background: var(--white);
     color:var(--section-color);
 }
@@ -205,6 +213,7 @@ footer{
     aspect-ratio: 1 / 1;
     background-color: var(--hole-color);
     border-radius: 100%;
+    transition: ease-in 100ms;
 }
 
 
@@ -247,6 +256,15 @@ footer{
     border-radius: 1vw;
     box-shadow: var(--shadow);
     transition: ease-out 0.15s;
+}
+
+.disabled{
+    transform: scale(0.75);
+    opacity: 40%;
+}
+
+.disabled:hover{
+    transform: scale(.75);
 }
 
 #gray {
