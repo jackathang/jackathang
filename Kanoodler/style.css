@@ -393,6 +393,16 @@ svg{
         font-size: 6vw;
         padding: 0;
     }
+
+    #rotate-right{
+        order:1;
+    }
+    #flip{
+        order:2;
+    }
+    #rotate-left{
+        order:3;
+    }
     
 }
 
