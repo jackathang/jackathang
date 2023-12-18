@@ -181,7 +181,8 @@ for (i=0;i<numOfElements;i++) {
 // rotate + flip functionality
 // Modified piece Memory
 const rotateRightButton = document.querySelector("#rotate-right");
-const flipButton = document.querySelector("#flip");
+const flipXButton = document.querySelector("#flip-x");
+const flipYButton = document.querySelector("#flip-y");
 const rotateLeftButton = document.querySelector("#rotate-left");
 
 
@@ -253,7 +254,7 @@ function rotateLeft() {
     }
     
 }
-function flip() {
+function flipX() {
     if (editPiece==true) {
         piece = modifiedPieces[Object.keys(pieces).indexOf(selectedPiece)]
         reverseColumn(piece);
@@ -261,10 +262,18 @@ function flip() {
     }
     
 }
+function flipY() {
+    if (editPiece==true) {
+        piece = modifiedPieces[Object.keys(pieces).indexOf(selectedPiece)]
+        reverseRow(piece);
+        drawPiece(piece,selectedPiece);
+    }
+}
 
-rotateRightButton.addEventListener("click", rotateRight)
-rotateLeftButton.addEventListener("click", rotateLeft)
-flipButton.addEventListener("click", flip)
+rotateRightButton.addEventListener("click", rotateRight);
+rotateLeftButton.addEventListener("click", rotateLeft);
+flipXButton.addEventListener("click", flipX);
+flipYButton.addEventListener("click", flipY);
 
 // Draggin functionality of Pieces
 
@@ -293,48 +302,46 @@ resizePiece(gameBoardHoles[0].offsetWidth);
 function mouseMovement(event) {
     resizePiece(pieceBoardHoles[0].offsetWidth);
 
-    // mouse original click
-    initX = event.clientX;
-    initY = event.clientY;
-
-    // pieces current position
-    currentX = parseInt(pieceBoard.style.left);
-    currentY = parseInt(pieceBoard.style.bottom);
-
-    // Sets offset to the distance between bottom left corner of overlay to the point clicked, then scale it to the ratio that it will be shrunk down to.
-    var overlayBox = pieceBoard.getBoundingClientRect();
-    var scale = (gameBoardHoles[0].offsetWidth)/(pieceBoardHoles[0].offsetWidth);
-    
-    // offsetX = ((initX-overlayBox.left)*scale);
-    // offsetY = ((initY-overlayBox.bottom)*scale);
-    offsetX = 0;
-    offsetY = 0;
-    
-    
+    // calculates variables needed to move the piece
+    calculateMovement(event);
+      
     // Move with mouse
     document.addEventListener('mousemove', movePiece); 
 }
 
 // touchscreen movement
 function touchMovement(event) {
+    // resives piece when it's dragged
     resizePiece(pieceBoardHoles[0].offsetWidth);
-    const touchEvent = event.touches ? event.touches[0] : event;
-    // touch original click
-    initX = touchEvent.clientX;
-    initY = touchEvent.clientY;
 
-    // pieces current position
+    // calculates variables needed to move the piece
+    const touchEvent = event.touches ? event.touches[0] : event;
+    calculateMovement(touchEvent)
+
+    document.addEventListener('touchmove', movePiece, { passive: false});
+}
+
+function calculateMovement(event) {
+    // dimensions of the overlay
+    var overlayBox = pieceBoard.getBoundingClientRect();
+    // scale modifier, is the ratio of the diameter of the gameboard's circles to the oevrlay's
+    var scale = (gameBoardHoles[0].offsetWidth)/(pieceBoardHoles[0].offsetWidth);    
+
+    // overlay original bottom left coordinates (x,y)
+    initX = overlayBox.left;
+    initY = overlayBox.bottom;
+
+    // the (x,y) coordinates of the point that was clicked
+    originalClickX = event.clientX;
+    originalClickY = event.clientY;
+
+    // pieces current position, is the css's absolute properties
     currentX = parseInt(pieceBoard.style.left);
     currentY = parseInt(pieceBoard.style.bottom);
 
-    // Sets offset to the distance between bottom left corner of overlay to the point clicked, then scale it to the ratio that it will be shrunk down to.
-    var overlayBox = pieceBoard.getBoundingClientRect();
-    var scale = (gameBoardHoles[0].offsetWidth)/(pieceBoardHoles[0].offsetWidth);
-    
-    offsetX = ((initX-overlayBox.left)*scale);
-    offsetY = ((initY-overlayBox.bottom)*scale);
-
-    document.addEventListener('touchmove', movePiece, { passive: false});
+    // offset calculation, scales the distance between the click point and bottom left of overlay to the ratioe of the gameboard to the pieceboard
+    offsetX = (scale*(originalClickX-initX));
+    offsetY = (scale*(originalClickY-initY));
 }
 
 // is called whenever mouse/touch moves on the screen
@@ -343,8 +350,8 @@ function movePiece(event) {
     const touchEvent = event.touches ? event.touches[0] : event;
 
     // Finds distance between original click point and new mouse position, then adds value to the piece's position
-    const x = currentX + ((touchEvent.clientX - initX)+offsetX);
-    const y = currentY + ((touchEvent.clientY - initY)+offsetY);    
+    const x = currentX + ((touchEvent.clientX - initX)-offsetX);
+    const y = currentY + ((touchEvent.clientY - initY)-offsetY);    
     
     pieceBoard.style.bottom = -y+"px";
     pieceBoard.style.left = x+"px";
@@ -432,13 +439,14 @@ function resizePiece(size) {
 }
 
 
-
+// moving the piece that's on board
 function movePieceOnBoard(event) {
     const color = event.target.classList[3]
     const pieceValue = Object.keys(pieces).indexOf(color)
     const piece = modifiedPieces[pieceValue]
     var move = 0;
     var previousColor = "";
+
     // conditional sees if the pieceboard already has a piece and retrieves the color of piece if there is one
     for (i=0;i<piece.length;i++) {
         for (j=0;j<piece.length;j++) {
@@ -451,12 +459,13 @@ function movePieceOnBoard(event) {
             }
         }}
 
-
+    // resets the piece that's on the board if a piece is clicked
     // if move is greater than 0, get the current color, reactive the button, reset the piece
     if (move > 0) {
         resetPiece()
         enableButton(previousColor)
     }
+
 
     // resets all pieces with the same color on the gameboard that was clicked 
     gameBoardHoles.forEach(function(gameHole){
@@ -466,7 +475,7 @@ function movePieceOnBoard(event) {
             gameHole.classList.remove(`${color}`);
         }
     })
-
+    
     // readds the piece to the overlay
     for (i=0;i<piece.length;i++) {
         for (j=0;j<piece.length;j++) {
@@ -481,6 +490,17 @@ function movePieceOnBoard(event) {
         }
     }
     
+    // move board to clicked position
+    // console.log(event.clientX,event.clientY);
+    // var overlayBox = pieceBoard.getBoundingClientRect();
+    // console.log(event.clientX-overlayBox.left)
+
+    // pieceBoard.style.left = event.clientX-overlayBox.left+"px";
+    // pieceBoard.style.bottom = -(event.clientY-overlayBox.bottom)+"px";
+
+    
+
+    // console.log(pieceBoard.style.left)
     
     selectedPiece = color;
     changePiece = false;
@@ -520,6 +540,8 @@ pieceBoard.addEventListener('mouseup', (event) => {
     pieceRelease(event);
     
 })
+
+
 
 
 
