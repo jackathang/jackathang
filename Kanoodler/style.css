@@ -193,9 +193,9 @@ footer{
     width: 100%;
     height: 100%;
 }
-/* .overlay {
+.overlay {
     background-color: red;
-} */
+}
 
 .overlay .hole, .game-overlay .hole{
     background-color: var(--transparent);
@@ -229,7 +229,7 @@ footer{
 }
 .piece-control-button {
     height: 80%;
-    width:27%;
+    width:20%;
 
     display: flex;
     justify-content: center;
@@ -388,7 +388,7 @@ svg{
     }
     .piece-control-button{
         width:80%;
-        height:27%;
+        height:20%;
     }
 
     #solve-button{
@@ -400,11 +400,14 @@ svg{
     #rotate-right{
         order:1;
     }
-    #flip{
+    #flip-x{
         order:2;
     }
+    #flip-y{
+        order: 3;
+    }
     #rotate-left{
-        order:3;
+        order:4;
     }
     
 }
