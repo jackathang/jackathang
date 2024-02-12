@@ -72,8 +72,19 @@ h2{
     color: var(--white);
     font-family: Cairo,sans-serif;
     text-transform: uppercase;
+    font-weight: 800;
 }
 
+h3{
+    margin: 0;
+    padding: 0;
+    color: var(--white);
+    font-family: Cairo,sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 30px;
+}
+ 
 p{
     color: var(--white);
     margin: 0;
@@ -101,6 +112,10 @@ a{
 
 .title{
     font-size: 45px;
+}
+
+.text-shadow{
+    text-shadow: var(--dark-text-shadow);
 }
 
 /* Logo CSS */
@@ -183,7 +198,6 @@ a{
 
 .red-cta, .yellow-cta, .blue-cta {
     animation: growFromZero 1s ease-out forwards;
-    text-shadow: var(--dark-text-shadow);
 }
 .red-cta{
     width: 90%;
@@ -201,21 +215,17 @@ a{
     box-shadow: var(--blue-box-shadow);
 }
 .cta-banner h2{
-    padding-left: 30px;
     font-family: var(--bungee-font);
     line-height: 150%;
-
+    font-weight: 400;
+    padding-left: 30px;
     animation: growFromZero 1s ease-out forwards;
 }
-
 
 /* About */
 .about-container{
     background-color: var(--darkRed);
     min-height: 330px;
-}
-.about-container h2.title{
-    text-shadow: var(--dark-text-shadow);
 }
 .about-container p{
     padding: 0 25px 25px 25px;
@@ -228,7 +238,7 @@ a{
 
 .project-container h2.title{
     color: var(--primaryDark);
-    text-shadow: var(--dark-text-shadow);
+    margin: 20px;
 }
 
 .project-dropdown{
@@ -237,9 +247,33 @@ a{
 }
 
 .project-dropdown-frame{
-    /* background-color: var(--primary-font-color); */
-    width: 80%;
+    width: 90%;
     border-radius: 0px 0px 25px 25px;
+}
+
+.project-info{
+    width: 65%;
+}
+
+
+.blue{
+    background-color: var(--blue);
+}
+
+.green {
+    background-color: var(--green);
+}
+
+.yellow {
+    background-color: var(--yellow);
+}
+
+.orange {
+    background-color: var(--orange);
+}
+
+.red {
+    background-color: var(--red);
 }
 
 /* .project-dropdown-frame:nth-child(even) {
