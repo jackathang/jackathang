@@ -8,7 +8,7 @@
 } */
 
 :root{
-    --white:#fff;
+    --white:#ececec;
     --red:#dd0d33;
     --darkRed:#9e0723;
     --orange:#df621c;
@@ -26,15 +26,17 @@
 
     --bungee-font: Bungee, sans-serif;
 
+    /* text shadows --might be removed */
     --blue-text-shadow:3px 3px var(--darkBlue);
-    --blue-box-shadow:6px 6px var(--darkBlue);
-
     --red-text-shadow: 3px 3px var(--darkRed);
-    --red-box-shadow: 6px 6px var(--darkRed);
-
-    /* For Yellow */
     --yellow-text-shadow: 3px 3px var(--darkYellow);
+
+
+    --blue-box-shadow:6px 6px var(--darkBlue);
+    --red-box-shadow: 6px 6px var(--darkRed);
     --yellow-box-shadow: 6px 6px var(--darkYellow);
+    
+    --dark-text-shadow: 4px 4px #00000050;
 
 }
 
@@ -88,12 +90,14 @@ a{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 95%;
+    width:95%;
     height: 95px;
     padding-bottom: 30px;
     position: relative;
 }
 .logo-piece{
+    text-align: center;
+
     margin: 0;
     width: 100%;
     position: absolute;
@@ -101,6 +105,8 @@ a{
     font-family: var(--bungee-font);
     font-size: 5em;
     line-height: 150%;
+
+    transform: translate(-50%, -50%);
 }
 #logo1.logo-piece{
     text-shadow: 
@@ -110,26 +116,18 @@ a{
         2.5px 2.5px 0 #000; 
     color: var(--white);
     z-index: 4;
-    top: 0;
-    left: 0;
 }
 #logo2.logo-piece{
     color:var(--blue);
     z-index: 3;
-    top: 4px;
-    left: 4px;
 }
 #logo3.logo-piece{
     color: var(--yellow);
     z-index: 2;
-    top: 8px;
-    left: 8px;
 }
 #logo4.logo-piece{
     color: var(--red);
     z-index: 1;
-    top: 12px;
-    left: 12px;
 }
 
 
@@ -176,6 +174,7 @@ a{
 
 .red-cta, .yellow-cta, .blue-cta {
     animation: growFromZero 1s ease-out forwards;
+    text-shadow: var(--dark-text-shadow);
 }
 .red-cta{
     width: 90%;
@@ -213,29 +212,55 @@ a{
 
 
 /* About */
-.about-container{
-    background-color: var(--darkRed);
+.container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
+    padding: 50px 30px;
+}
+
+.about-container{
+    background-color: var(--darkRed);
     min-height: 330px;
 }
 
 .title{
     font-size: 45px;
-    padding: 15px;
+    text-transform: uppercase;
 }
 
-.about-container .title{
+.about-container h2.title{
     color: var(--white);
+    text-shadow: var(--dark-text-shadow);
 }
 
 .about-container p{
     font-size: 20px;
     padding: 0 25px 25px 25px;
 }
+
+/* Projects */
+.project-container{
+    background-color: var(--secondary-color);
+}
+
+.project-container h2.title{
+    color: var(--primaryDark);
+    text-shadow: var(--dark-text-shadow);
+}
+
+.project-dropdown{
+    background-color: var(--white);
+}
+
+.project-dropdown-frame{
+    background-color: var(--primary-font-color);
+    width: 80%;
+    border-radius: 0px 0px 25px 25px;
+}
+
 
 @keyframes growFromZero {
     from {

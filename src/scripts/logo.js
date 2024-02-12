@@ -6,13 +6,20 @@ const logoCenterX = logoRect.left+ (logoRect.width / 2), logoCenterY = logoRect.
 
 document.addEventListener("mousemove", function(event){
     logoSegments.forEach(function(segment, index){
+        index = 4 - index;
         let distanceX = (event.clientX - logoCenterX) / 50; // Calculate distanceX with index offset
         let distanceY = (event.clientY - logoCenterY) / 50; // Calculate distanceY with index offset
-        segment.style.top = `${distanceY*index/1.3}px`;
-        segment.style.left = `${distanceX*index/1.3}px`;
-        console.log(4*index)
+        
+        // Calculate the offset to keep the segment centered
+        let offsetX = distanceX * index / 1.3;
+        let offsetY = distanceY * index / 1.3;
+        
+        // Set the new top and left positions to keep the segment centered
+        segment.style.top = `calc(50% + ${offsetY}px)`;
+        segment.style.left = `calc(50% + ${offsetX}px)`;
     });
-})
+});
+
 
 
 // Transition to section animation
@@ -43,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function ease(t, b, c, d) {
-            // Easing function - you can replace this with any easing function you prefer
+            
             t /= d / 2;
             if (t < 1) return c / 2 * t * t + b;
             t--;
