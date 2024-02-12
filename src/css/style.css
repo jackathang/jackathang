@@ -37,7 +37,6 @@
     --yellow-box-shadow: 6px 6px var(--darkYellow);
     
     --dark-text-shadow: 4px 4px #00000050;
-
 }
 
 /* Styles for light mode */
@@ -70,8 +69,9 @@ body{
 h2{
     margin: 0;
     padding: 0;
-    color:var(--primary-font-color);
+    color: var(--white);
     font-family: Cairo,sans-serif;
+    text-transform: uppercase;
 }
 
 p{
@@ -79,12 +79,30 @@ p{
     margin: 0;
     padding: 20px;
     font-family: Cairo,sans-serif;
+    font-size: 20px;
     font-weight: 700;
 }
 
 a{
     text-decoration: none;
 }
+
+/* Global */
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.container{
+    padding: 50px 30px;
+}
+
+.title{
+    font-size: 45px;
+}
+
 /* Logo CSS */
 .logo{
     display: flex;
@@ -144,18 +162,10 @@ a{
 
 .hero-text{
     width: 50%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 .hero-cta{
     width: 50%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: end;
 
     gap: 18px;
@@ -163,8 +173,7 @@ a{
 
 .cta-banner{
     padding: 7px 10px 7px 10px;
-    border-radius: 15px 0px 0px 15px;
-    
+    border-radius: 15px 0px 0px 15px; 
 }
 
 .cta-banner:hover {
@@ -181,29 +190,18 @@ a{
     background-color: var(--red);
     box-shadow: var(--red-box-shadow);
 }
-.red-cta h2{
-    text-shadow: var(--red-text-shadow);
-}
 .yellow-cta{
     width: 95%;
     background-color: var(--yellow);
     box-shadow: var(--yellow-box-shadow);
-}
-.yellow-cta h2{
-    text-shadow: var(--yellow-text-shadow);
 }
 .blue-cta{
     width: 100%;
     background-color: var(--blue);
     box-shadow: var(--blue-box-shadow);
 }
-.blue-cta h2{
-    text-shadow: var(--blue-text-shadow);
-}
-
 .cta-banner h2{
     padding-left: 30px;
-    color: var(--white);
     font-family: var(--bungee-font);
     line-height: 150%;
 
@@ -212,32 +210,14 @@ a{
 
 
 /* About */
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    padding: 50px 30px;
-}
-
 .about-container{
     background-color: var(--darkRed);
     min-height: 330px;
 }
-
-.title{
-    font-size: 45px;
-    text-transform: uppercase;
-}
-
 .about-container h2.title{
-    color: var(--white);
     text-shadow: var(--dark-text-shadow);
 }
-
 .about-container p{
-    font-size: 20px;
     padding: 0 25px 25px 25px;
 }
 
@@ -253,13 +233,22 @@ a{
 
 .project-dropdown{
     background-color: var(--white);
+    border-radius: 25px!important;
 }
 
 .project-dropdown-frame{
-    background-color: var(--primary-font-color);
+    /* background-color: var(--primary-font-color); */
     width: 80%;
     border-radius: 0px 0px 25px 25px;
 }
+
+/* .project-dropdown-frame:nth-child(even) {
+    background-color: black;
+  }
+  
+  .project-dropdown-frame:nth-child(odd) {
+    background-color: white;
+  } */
 
 
 @keyframes growFromZero {
