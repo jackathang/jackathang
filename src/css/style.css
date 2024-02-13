@@ -1,11 +1,11 @@
-/* @font-face {
+@font-face {
     font-family: 'Bungee';
     src: url('./src/assets/Fonts/Bungee-Regular.ttf') format('truetype');
 }
 @font-face {
     font-family: 'Cairo';
     src: url('./src/assets/Fonts/Cairo/Cairo-VariableFont_slnt,wght.ttf') format('truetype');
-} */
+}
 
 :root{
     --white:#ececec;
@@ -64,6 +64,8 @@ body{
     padding: 0;
     margin: 0;
     height: 100vh;
+
+    background-color: var(--primary-color);
 }
 
 h2{
@@ -88,7 +90,7 @@ h3{
 p{
     color: var(--white);
     margin: 0;
-    padding: 20px;
+    padding: 0 25px 25px 25px;
     font-family: Cairo,sans-serif;
     font-size: 20px;
     font-weight: 700;
@@ -138,6 +140,8 @@ a{
     font-family: var(--bungee-font);
     font-size: 5em;
     line-height: 150%;
+    font-weight: 700;
+    text-transform: none;
 
     transform: translate(-50%, -50%);
 }
@@ -292,3 +296,41 @@ a{
     }
 }
 
+@media only screen and (max-width: 768px) {
+    body{
+        width: 100vw;
+    }
+    /* logo */
+    .logo-piece{
+        font-size: 3em;
+    }
+    /* hero */
+    .hero-container{
+        flex-direction: column;
+        min-height: 45vh;
+    }
+    .hero-text{
+        padding-bottom: 25px;
+    }
+    .hero-cta, .hero-text{
+        width: 100%;
+    }
+
+    .red-cta{
+        width: 65%;
+    }
+    .yellow-cta{
+        width: 70%;
+    }
+    .blue-cta{
+        width: 75%;
+    }
+
+
+
+    /* about */
+    .about-container{
+        min-height: 85vh;
+    }
+
+}
