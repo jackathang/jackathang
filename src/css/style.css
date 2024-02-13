@@ -307,7 +307,9 @@ a{
     /* hero */
     .hero-container{
         flex-direction: column;
-        min-height: 45vh;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 0;
     }
     .hero-text{
         padding-bottom: 25px;
@@ -330,7 +332,7 @@ a{
 
     /* about */
     .about-container{
-        min-height: 85vh;
+        min-height: 100vh;
     }
 
 }
