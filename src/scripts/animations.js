@@ -60,19 +60,3 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(animation);
     }
 });
-
-window.addEventListener('deviceorientation', handleOrientation);
-
-const testOutput = document.querySelector(".test");
-
-function handleOrientation(event) {
-    // Get rotation data from the device
-    var alpha = event.alpha; // Rotation around z-axis (in degrees)
-    var beta = event.beta;   // Rotation around x-axis (in degrees)
-    var gamma = event.gamma; // Rotation around y-axis (in degrees)
-
-    // Use rotation data to adjust parallax effect
-    // For example, you can adjust the position of parallax layers based on alpha, beta, gamma values
-    // Update the CSS properties of your parallax layers accordingly
-    testOutput.textContent= `${alpha}, ${beta}, ${gamma}`
-}

@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Jack Graue</title>
     <link rel="stylesheet" href="./src/css/style.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Cairo&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <!-- HERO -->
     <div class="hero-container">
-        <p class="test">This is a test</p>
         <div class="hero-text center">
             <div class="logo">
                 <h1 class="logo-piece" id="logo1">Jack Graue</h1>
@@ -19,12 +21,12 @@
                 <h2 class="logo-piece" id="logo3">Jack Graue</h2>
                 <h2 class="logo-piece" id="logo4">Jack Graue</h2>
             </div>
-            <h2>Developer & Designer</h2>
+            <h2 class="subtitle">Developer & Designer</h2>
         </div>
         
         <div class="hero-cta center text-shadow">
             <a class = "cta-banner red-cta" href="#about"><h2>About</h2></a>
-            <div class = "cta-banner yellow-cta"><h2>Projects</h2></div>
+            <a class = "cta-banner yellow-cta"href="#projects"><h2>Projects</h2></a>
             <div class = "cta-banner blue-cta"><h2>Contact</h2></div> 
         </div>
     </div>
@@ -37,58 +39,62 @@
     </div>
 
     <!-- Projects -->
-    <div class="project-container container center">
-        <div class="project-dropdown project-dropdown-frame center">
-            <h2 class="title">Latest Project</h2>
-        </div>
+    <div class="project-container container center" id="projects">
 
-        <div class="project-dropdown-frame blue">
-            <div class="project-info center">
-                <h3 class="text-shadow">Project Name</h3>
-                <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
+        <div class="project-dropdown-collection center">
+            <div class="project-dropdown-button project-dropdown-frame center">
+                <h2 class="title">Latest Work</h2>
             </div>
-            <div>
-                <!-- Website iframe here? -->
-            </div>
-        </div>
 
-        <div class="project-dropdown-frame green">
-            <div class="project-info">
-                <h3>Project Name</h3>
-                <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
+            <div class="project-dropdown-frame blue">
+                <div class="project-info center">
+                    <h3 class="text-shadow">Project Name</h3>
+                    <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
+                </div>
+                <div class="website-display center">
+                    <div class="website-window"></div>
+                    <!-- Website iframe here? -->
+                </div>
             </div>
-            <div>
-                <!-- Website iframe here? -->
+            <div class="project-dropdown-frame green">
+                <div class="project-info center">
+                    <h3 class="text-shadow">Project Name</h3>
+                    <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
+                </div>
+                <div class="website-display center">
+                    <div class="website-window"></div>
+                    <!-- Website iframe here? -->
+                </div>
             </div>
-        </div>
-
-        <div class="project-dropdown-frame yellow">
-            <div class="project-info">
-                <h3>Project Name</h3>
-                <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
+            <div class="project-dropdown-frame yellow">
+                <div class="project-info center">
+                    <h3 class="text-shadow">Project Name</h3>
+                    <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
+                </div>
+                <div class="website-display center">
+                    <div class="website-window"></div>
+                    <!-- Website iframe here? -->
+                </div>
             </div>
-            <div>
-                <!-- Website iframe here? -->
+            <div class="project-dropdown-frame orange">
+                <div class="project-info center">
+                    <h3 class="text-shadow">Project Name</h3>
+                    <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
+                </div>
+                <div class="website-display center">
+                    <div class="website-window"></div>
+                    <!-- Website iframe here? -->
+                </div>
             </div>
-        </div>
-
-        <div class="project-dropdown-frame orange">
-            <div class="project-info">
-                <h3>Project Name</h3>
-                <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
-            </div>
-            <div>
-                <!-- Website iframe here? -->
-            </div>
-        </div>
-
-        <div class="project-dropdown-frame red">
-            <div class="project-info">
-                <h3>Project Name</h3>
-                <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
-            </div>
-            <div>
-                <!-- Website iframe here? -->
+            <div class="project-dropdown-frame red">
+                <div class="project-info center">
+                    <h3 class="text-shadow">Project Name</h3>
+                    <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
+                </div>
+                <div class="website-display center">
+                    <div class="website-window"></div>
+                    <!-- Website iframe here? -->
+                </div>
             </div>
         </div>
 
