@@ -148,7 +148,6 @@ button{
     font-size: 6vw;
     line-height: 150%;
     font-weight: 700;
-    text-transform: none;
 
     transform: translate(-50%, -50%);
 }
@@ -383,7 +382,8 @@ form {
     font-family: Cairo;
     font-weight: 700;
     color: var(--primaryDark);
-    
+
+    background-color: var(--white);
 }
 
 .form-row input:focus-visible{
@@ -412,6 +412,46 @@ form button:active{
     background-color: var(--darkYellow);
     box-shadow: -6px -6px var(--yellow);
 }
+
+/* Footer */
+
+footer h1{
+    font-family: var(--bungee-font);
+    font-size: 6vw;
+    line-height: 150%;
+    font-weight: 700;
+    text-transform: none;
+    color: var(--white);
+    text-shadow: 
+        -2.5px -2.5px 0 #000,  
+        2.5px -2.5px 0 #000,
+        -2.5px 2.5px 0 #000,
+        2.5px 2.5px 0 #000,
+        6px 4px 0 var(--blue),
+        10px 8px 0 var(--yellow),
+        14px 12px 0 var(--red); 
+    margin-bottom: 0px!important;
+}
+
+.socials{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+    gap: 24px;
+
+    font-size: 3rem;
+    color: var(--secondary-color);    
+}
+
+footer p{
+    font-size: 1rem;
+    color: var(--secondary-color);
+    align-items: flex-end;
+    padding: 0;
+}
+
 
 @keyframes growFromZero {
     from {
