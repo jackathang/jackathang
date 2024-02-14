@@ -149,7 +149,8 @@ button{
     line-height: 150%;
     font-weight: 700;
 
-    transform: translate(-50%, -50%);
+    /* transform: translate(-50%, -50%); */
+
 }
 #logo1.logo-piece{
     text-shadow: 
@@ -159,6 +160,8 @@ button{
         2.5px 2.5px 0 #000; 
     color: var(--white);
     z-index: 4;
+    
+    
 }
 #logo2.logo-piece{
     color:var(--blue);
