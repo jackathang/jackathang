@@ -23,10 +23,9 @@ window.onmousemove = e => {
     });
 }
 
-// request permission on page load
-window.onload = function() {
+document.querySelector(".hero-container").addEventListener("tap",function(){
     requestDeviceOrientation();
-};
+})
 
 // mobile
 let originalAlpha, originalBeta, originalGamma;
