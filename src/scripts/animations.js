@@ -4,7 +4,7 @@ const logoContainer = document.querySelector(".logo");
 const logoRect = logoContainer.getBoundingClientRect();
 const logoCenterX = logoRect.left+ (logoRect.width / 2), logoCenterY = logoRect.top + (logoRect.height / 2);
 
-document.addEventListener("mousemove", function(event){
+window.onmousemove = e => {
     logoSegments.forEach(function(segment, index){
         index = 4 - index;
         let distanceX = (event.clientX - logoCenterX) / 50; // Calculate distanceX with index offset
@@ -13,13 +13,17 @@ document.addEventListener("mousemove", function(event){
         // Calculate the offset to keep the segment centered
         let offsetX = distanceX * index / 1.3;
         let offsetY = distanceY * index / 1.3;
+        segment.animate({
+            top: `calc(50% + ${offsetY}px)`,
+            left: `calc(50% + ${offsetX}px)`
+        }, { duration: 150, fill: "forwards" });
+        
         
         // Set the new top and left positions to keep the segment centered
-        segment.style.top = `calc(50% + ${offsetY}px)`;
-        segment.style.left = `calc(50% + ${offsetX}px)`;
+        
     });
-});
 
+}
 
 
 // Transition to section animation
@@ -60,3 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(animation);
     }
 });
+
+
+// Project Drop Down
+const projectDropButton = document.querySelector(".project-dropdown-button")
+
+
+projectDropButton.addEventListener("click",function(){
+    console.log("clicked")
+})

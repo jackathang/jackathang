@@ -28,6 +28,8 @@
     --yellow-box-shadow: 6px 6px var(--darkYellow);
     
     --dark-text-shadow: 4px 4px #00000050;
+
+    --white-box-shadow: 0px 0px 10px 4px #ececec50;
 }
 
 /* Styles for light mode */
@@ -91,6 +93,19 @@ a{
     text-decoration: none;
 }
 
+button{
+    margin:10px ;
+    padding: 5px;
+    border: none;
+    border-radius: 15px;
+
+    font-family: Cairo;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--primaryDark);
+}
+
 /* Global */
 .center{
     display: flex;
@@ -101,6 +116,7 @@ a{
 
 .container{
     padding: 50px 30px;
+    min-height: 330px;
 }
 
 .title{
@@ -224,7 +240,6 @@ a{
 /* About */
 .about-container{
     background-color: var(--darkRed);
-    min-height: 330px;
 }
 .about-container p{
     padding: 0 25px 25px 25px;
@@ -235,14 +250,27 @@ a{
     background-color: var(--secondary-color);
 }
 
+
+
+.project-dropdown-collection{
+    position: relative;
+    height: calc(20vh + 20px)!important;
+    width: 100%;
+}
+
+/* Title button */
 .project-container h2.title{
     color: var(--primaryDark);
     margin: 20px;
 }
-
 .project-dropdown-button{
     background-color: var(--white);
     transition: all .45s ease-out;
+    height: calc(20vh + 20px)!important;
+    border: none;
+
+    top: 0;
+    z-index: 6;
 }
 .project-dropdown-button:hover,
 .project-dropdown-button:hover .title {
@@ -252,69 +280,137 @@ a{
 
 .project-dropdown-button:hover {
     background-color: var(--primary-color);
+    box-shadow: var(--white-box-shadow);
 }
-
-/* .project-dropdown-button:hover,
-.project-dropdown-button:hover .title {
-    transition: all .45s ease-out;
-    color: white;
-} */
 
 .project-dropdown-button:active {
-    transform: scale(.9);
+    transform: scale(.95);
 }
 
+/* project frames */
+.project-frame-dropdown{
+    position: absolute;
+    overflow: hidden;
 
-
+    width: 100%;
+    height: calc(20vh + 20px)!important;
+    
+    border-radius: 25px;
+    
+    top: 0;
+}
 .project-dropdown-frame{
     display: flex;
-    width: 100%;
     border-radius: 25px;
+
+
+    position: absolute;
+    width: 100%;
+    height: calc(60vh + 60px);
+}
+.project-dropdown-frame:nth-child(even) {
+    flex-flow: row-reverse;
 }
 
+.blue{
+    background-color: var(--blue);
+    z-index: 5;
+}
+
+.green {
+    background-color: var(--green);
+    z-index: 4;
+}
+
+.yellow {
+    background-color: var(--yellow);
+    z-index: 3;
+}
+
+.orange {
+    background-color: var(--orange);
+    z-index: 2;
+}
+
+.red {
+    background-color: var(--red);
+    z-index: 1;
+}
+
+/* inside project frames */
 .project-info{
     width: 65%;
 }
 .website-display{
     width: 45%;
 }
-
 .website-window{
     width: 90%;
     aspect-ratio: 16 / 9;
     background-color: red;
 }
-
-.project-dropdown-frame:nth-child(even) {
-    flex-flow: row-reverse;
-}
-
 .project-dropdown-frame:nth-child(odd) .website-display .website-window {
     margin-right: 30px;
 }
-
 .project-dropdown-frame:nth-child(even) .website-display .website-window {
     margin-left: 30px;
 }
 
-.blue{
-    background-color: var(--blue);
+
+
+/* Contact */
+.contact-container{
+    background-color: var(--darkBlue);
+}
+form {
+    width: 100%;
+}
+.form-row{
+    display: flex;
+    width: 100%;
 }
 
-.green {
-    background-color: var(--green);
+.form-row input{
+    margin:10px ;
+    padding: 10px;
+    width: 100%;
+
+    border: none;
+    border-radius: 15px;
+
+    box-shadow: var(--dark-text-shadow);
+
+    font-family: Cairo;
+    font-weight: 700;
+    color: var(--primaryDark);
+    
 }
 
-.yellow {
+.form-row input:focus-visible{
+    outline: none;
+}
+
+form #message{
+    height: 6rem;
+}
+
+form button{
+    width: 60%;
+
+    color: var(--white);
+    text-shadow: 3px 3px #00000050;
+
     background-color: var(--yellow);
+    box-shadow: var(--yellow-box-shadow);
+    transition: all .25s ease-out;;
 }
 
-.orange {
-    background-color: var(--orange);
+form button:hover{
+    box-shadow: var(--white-box-shadow);
 }
-
-.red {
-    background-color: var(--red);
+form button:active{
+    background-color: var(--darkYellow);
+    box-shadow: -6px -6px var(--yellow);
 }
 
 @keyframes growFromZero {
@@ -334,6 +430,8 @@ a{
     /* project */
     .project-dropdown-frame{
         flex-direction: column!important;
+        justify-content: center;
+        height: calc(80vh + 80px)
     }
     .project-info, .website-display{
         width: 100%;
@@ -346,9 +444,10 @@ a{
 
 /* Mobile */
 @media only screen and (max-width: 768px) {
-    body{
-        width: 100vw;
+    .container{
+        min-height: 100vh;
     }
+
     /* logo */
     .logo-piece{
         font-size: 3em;
@@ -380,8 +479,5 @@ a{
 
 
     /* about */
-    .about-container{
-        min-height: 100vh;
-    }
-
+    
 }
