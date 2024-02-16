@@ -43,63 +43,136 @@
     <!-- Projects -->
     <div class="project-container container center" id="projects">
 
-        <div class="project-dropdown-collection center">
+        <!-- <div class="project-dropdown-collection center">
             <button class="project-dropdown-button project-dropdown-frame center">
                 <h2 class="title">Latest Work</h2>
             </button>
-            <div class="project-frame-dropdown">
-                <div class="project-dropdown-frame blue">
+            <ul class="project-frame-dropdown">
+                <li class="project-dropdown-frame blue">
                     <div class="project-info center">
                         <h3 class="text-shadow">Project Name</h3>
                         <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
                     </div>
                     <div class="website-display center">
                         <div class="website-window"></div>
-                        <!-- Website iframe here? -->
                     </div>
-                </div>
-                <div class="project-dropdown-frame green">
+                </li>
+                <li class="project-dropdown-frame green">
                     <div class="project-info center">
                         <h3 class="text-shadow">Project Name</h3>
                         <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
                     </div>
                     <div class="website-display center">
                         <div class="website-window"></div>
-                        <!-- Website iframe here? -->
                     </div>
-                </div>
-                <div class="project-dropdown-frame yellow">
+                </li>
+                <li class="project-dropdown-frame yellow">
                     <div class="project-info center">
                         <h3 class="text-shadow">Project Name</h3>
                         <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
                     </div>
                     <div class="website-display center">
                         <div class="website-window"></div>
-                        <!-- Website iframe here? -->
                     </div>
-                </div>
-                <div class="project-dropdown-frame orange">
+                </li>
+                <li class="project-dropdown-frame orange">
                     <div class="project-info center">
                         <h3 class="text-shadow">Project Name</h3>
                         <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
                     </div>
                     <div class="website-display center">
                         <div class="website-window"></div>
-                        <!-- Website iframe here? -->
                     </div>
-                </div>
-                <div class="project-dropdown-frame red">
+                </li>
+                <li class="project-dropdown-frame red">
                     <div class="project-info center">
                         <h3 class="text-shadow">Project Name</h3>
                         <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
                     </div>
                     <div class="website-display center">
                         <div class="website-window"></div>
-                        <!-- Website iframe here? -->
                     </div>
-                </div>
+                </li>
+            </ul>
+        </div> -->
+        <div class="dropdown">
+            
+            <div id="dropdown-content">
+                <button id="dropdown-btn">Toggle Dropdown</button>
+                <div class="content" id="a1" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eum minima saepe facilis quaerat aliquam quisquam veniam qui asperiores eligendi repellat ab laboriosam iure quidem, rem perferendis deserunt? Consequatur, minima?</div>
+                <div class="content" id="a2" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eum minima saepe facilis quaerat aliquam quisquam veniam qui asperiores eligendi repellat ab laboriosam iure quidem, rem perferendis deserunt? Consequatur, minima?</div>
+                <div class="content" id="a3" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eum minima saepe facilis quaerat aliquam quisquam veniam qui asperiores eligendi repellat ab laboriosam iure quidem, rem perferendis deserunt? Consequatur, minima?</div>
+                <div class="content" id="a4" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eum minima saepe facilis quaerat aliquam quisquam veniam qui asperiores eligendi repellat ab laboriosam iure quidem, rem perferendis deserunt? Consequatur, minima?</div>
+                <div class="content" id="a5" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eum minima saepe facilis quaerat aliquam quisquam veniam qui asperiores eligendi repellat ab laboriosam iure quidem, rem perferendis deserunt? Consequatur, minima?</div>
             </div>
         </div>
+
+        <style>
+            .dropdown{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            
+            #dropdown-btn {
+                background-color: lime;
+                position: relative; /* Change to relative */
+                z-index: 6;
+                margin: 0;
+                width: 100%;
+            }
+
+            #dropdown-content {
+                /* background-color: yellow; */
+                position: relative;
+                overflow: hidden;
+                width: 70%;
+            }
+
+            .content {
+                position: absolute;
+                overflow: hidden;
+
+                display: flex;
+                justify-content: center;
+                align-items: end;
+
+                top: 0;
+
+                border-radius: 15px;
+
+                height: 0;
+
+                transition: all 1.5s ease-out;
+            }
+
+            #a1 {
+                background-color: pink;
+                z-index: 5;
+                
+            }
+            #a2 {
+                background-color: cyan;
+                z-index: 4;
+            }
+            #a3 {
+                background-color: pink;
+                z-index: 3;
+                
+            }
+            #a4 {
+                background-color: cyan;
+                z-index: 2;
+            }
+
+            #a5 {
+                background-color: pink;
+                z-index: 1;
+                
+            }
+
+
+        </style>
 
         <button>View More Projects</button>
     </div>

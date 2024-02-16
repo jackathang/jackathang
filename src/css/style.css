@@ -206,11 +206,14 @@ button{
 .cta-banner{
     padding: 7px 10px 7px 10px;
     border-radius: 15px 0px 0px 15px; 
+    transition: all .45s ease-out;
 }
 
 .cta-banner:hover {
-    transition: all .45s ease-out;
-    opacity: 75%;
+    padding-right: 10%;
+}
+.cta-banner:active {
+    padding-right: 5%;
 }
 
 .red-cta, .yellow-cta, .blue-cta {
@@ -250,6 +253,7 @@ button{
 /* Projects */
 .project-container{
     background-color: var(--secondary-color);
+    justify-content: center;
 }
 
 
@@ -261,6 +265,8 @@ button{
 }
 
 /* Title button */
+
+
 .project-container h2.title{
     color: var(--primaryDark);
     margin: 20px;
@@ -313,27 +319,22 @@ button{
 .project-dropdown-frame:nth-child(even) {
     flex-flow: row-reverse;
 }
-
 .blue{
     background-color: var(--blue);
     z-index: 5;
 }
-
 .green {
     background-color: var(--green);
     z-index: 4;
 }
-
 .yellow {
     background-color: var(--yellow);
     z-index: 3;
 }
-
 .orange {
     background-color: var(--orange);
     z-index: 2;
 }
-
 .red {
     background-color: var(--red);
     z-index: 1;
@@ -371,7 +372,6 @@ form {
     display: flex;
     width: 100%;
 }
-
 .form-row input{
     margin:10px ;
     padding: 10px;
@@ -388,15 +388,12 @@ form {
 
     background-color: var(--white);
 }
-
 .form-row input:focus-visible{
     outline: none;
 }
-
 form #message{
     height: 6rem;
 }
-
 form button{
     width: 60%;
 
@@ -405,9 +402,8 @@ form button{
 
     background-color: var(--yellow);
     box-shadow: var(--yellow-box-shadow);
-    transition: all .25s ease-out;;
+    transition: all .25s ease-out;
 }
-
 form button:hover{
     box-shadow: var(--white-box-shadow);
 }
@@ -417,7 +413,6 @@ form button:active{
 }
 
 /* Footer */
-
 footer h1{
     font-family: var(--bungee-font);
     font-size: 6vw;
@@ -465,6 +460,10 @@ footer p{
 /* Smaller */
 @media only screen and (max-width: 800px){
     /* global */
+    body{
+        width: 100%;
+        overflow-x: hidden;
+    }
     p{
         text-align: center;
         line-height: 1.5;
