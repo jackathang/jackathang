@@ -16,10 +16,7 @@ window.onmousemove = e => {
         segment.animate({
             top: `calc(${offsetY}px)`,
             left: `calc(${offsetX}px)`
-        }, { duration: 1000, fill: "forwards" });   
-        
-        // console.log(Math.round(distanceX),Math.round(distanceY))
-        
+        }, { duration: 500, fill: "forwards" });       
     });
 }
 
@@ -122,60 +119,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
-
-
-
-// Project Drop Down
-// const projectDropButton = document.querySelector(".project-dropdown-button")
-
-
-// projectDropButton.addEventListener("click",function(){
-//     console.log("clicked")
-// })
-
-
-
-
-
-
-
-
-
-const collapsedStyles = {
-    padding: "0",
-    height: "0"
-};
-
+// Project Drop down
 function toggleLinkStyles(link, isExpanded, index) {
     if (isExpanded) {
-        let paddingValue = `${(40*(index)+7)}vh 0 0 0`;
+        let paddingValue = `${(40*(index)+5)}vh 0 0 0`;
         
         link.style.padding = paddingValue;
         link.style.height = "20%";
-        console.log(index)
+        dropdownContent.style.height = `${209}vh`
     } else {
-        link.style.padding = collapsedStyles.padding;
-        link.style.height = collapsedStyles.height;
+        link.style.padding = "0";
+        link.style.height = "0%";
+        dropdownContent.style.height = `7vh`
     }
 }
-
 
 var links = document.querySelectorAll("div .content");
 var dropdownContent = document.querySelector("#dropdown-content");
 var dropdown = document.querySelector(".dropdown");
 
 let isExpanded = false;
-document.getElementById("dropdown-btn").addEventListener("click", function() {
+document.querySelector(".dropdown-btn").addEventListener("click", function() {
     isExpanded = !isExpanded;
     links.forEach(function(link, index) {
         toggleLinkStyles(link, isExpanded, index);
     });
-    
-    // Need to add the same padding to bottom of project-container to fit
-    // also needs to look good for mobile
-    dropdownContent.style.height = `${209}vh`
-
 });
   
   
