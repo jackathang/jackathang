@@ -134,20 +134,48 @@ document.addEventListener('DOMContentLoaded', function() {
 //     console.log("clicked")
 // })
 
+
+
+
+
+
+
+
+
+const collapsedStyles = {
+    padding: "0",
+    height: "0"
+};
+
+function toggleLinkStyles(link, isExpanded, index) {
+    if (isExpanded) {
+        let paddingValue = `${(40*(index)+7)}vh 0 0 0`;
+        
+        link.style.padding = paddingValue;
+        link.style.height = "20%";
+        console.log(index)
+    } else {
+        link.style.padding = collapsedStyles.padding;
+        link.style.height = collapsedStyles.height;
+    }
+}
+
+
 var links = document.querySelectorAll("div .content");
-var dropdown = document.querySelector("#dropdown-content");
+var dropdownContent = document.querySelector("#dropdown-content");
+var dropdown = document.querySelector(".dropdown");
 
+let isExpanded = false;
 document.getElementById("dropdown-btn").addEventListener("click", function() {
+    isExpanded = !isExpanded;
     links.forEach(function(link, index) {
-        // console.log("Index of link", index, link);
-        link.style.padding = `${35*index}% 0px 0px 0px`
-        link.style.height = "20%"
+        toggleLinkStyles(link, isExpanded, index);
     });
-
+    
     // Need to add the same padding to bottom of project-container to fit
     // also needs to look good for mobile
-    dropdown.style.height = `${2700}%`  
-});
+    dropdownContent.style.height = `${209}vh`
 
+});
   
   

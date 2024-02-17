@@ -254,6 +254,7 @@ button{
 .project-container{
     background-color: var(--secondary-color);
     justify-content: center;
+    min-height: fit-content;
 }
 
 
