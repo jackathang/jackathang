@@ -1,17 +1,19 @@
 // Mobile popup for permissions
 const mobilePopup = document.querySelector(".mobile-popup");
-mobilePopup.style.display = "unset"
+// mobilePopup.style.display = "unset"
 
-// Reject permissions
-function rejectPermissions(){
-    mobilePopup.style.display = "none"
-}
+// // Reject permissions
+// function rejectPermissions(){
+//     mobilePopup.style.display = "none"
+// }
 
-//Accept permissions 
-function acceptPermissions(){
-    mobilePopup.style.display = "none"
-    requestDeviceOrientation();
-}
+// //Accept permissions 
+// function acceptPermissions(){
+//     mobilePopup.style.display = "none"
+//     requestDeviceOrientation();
+// }
+
+requestDeviceOrientation();
 
 const logoSegments = document.querySelectorAll(".logo-piece");
 const logoContainer = document.querySelector(".logo");
