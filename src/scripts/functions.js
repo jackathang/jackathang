@@ -11,6 +11,10 @@ function detectColorScheme() {
 // Detect color scheme on page load
 detectColorScheme();
 
+// Listen for changes to the color scheme
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', detectColorScheme);
+
+
 // Smooth scrolling functionality
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -39,9 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var offset = 600; // Adjust this value as needed
             // If the top of the element is within the viewport, or if it's close to being in the viewport, fade it in
             if (distanceToTop - windowHeight + elementHeight < offset) {
-                var width = ((windowHeight - distanceToTop + offset) / (windowHeight + offset))*100;
-                
-                console.log(Math.round(width));
+                var width = ((windowHeight - distanceToTop + offset) / (windowHeight + offset))*100;                
                 if (width <90) {
                     scrollFade.style.width = `${width}%`;
                 } else {
