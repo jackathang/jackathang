@@ -164,20 +164,26 @@ button{
         2.5px 2.5px 0 #000; 
     color: var(--white);
     z-index: 4;
-    
-    
+    top: 0;
+    left: 0;
 }
 #logo2.logo-piece{
     color:var(--blue);
     z-index: 3;
+    top: 4px;
+    left: 6px;
 }
 #logo3.logo-piece{
     color: var(--yellow);
     z-index: 2;
+    top: 8px;
+    left: 10px;
 }
 #logo4.logo-piece{
     color: var(--red);
     z-index: 1;
+    top: 12px;
+    left: 14px;
 }
 
 
@@ -259,6 +265,7 @@ button{
     background-color: var(--secondary-color);
     min-height: fit-content;
     padding: 25vh 0vh;
+    transition: all 2s ease-in-out;
 }
 
 /* project button */
@@ -317,6 +324,7 @@ button{
     position: relative;
     overflow: hidden;
     width: 70%;
+    height: 10vh;
     border-radius: 15px;
     transition: all 2s ease-in-out;
 }
@@ -524,7 +532,7 @@ footer p{
 }
 
 /* Smaller Screens NOT Mobile */
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 1000px){
     /* global */
     body{
         width: 100%;
@@ -536,16 +544,24 @@ footer p{
     }
 
     /* project */
+    .project-container{
+        padding: 30vh 0vh;
+        min-height: fit-content!important;
+    }
     .project-dropdown-frame{
         flex-direction: column!important;
-        justify-content: center;
-        height: calc(80vh + 80px)
+        justify-content: end;
+        padding-bottom: 3vh;
     }
     .project-info, .website-display{
         width: 100%;
     }
+    .website-display{
+        display: flex;
+        align-items: center!important;
+    }
     .website-window{
-        margin:20px 20px 40px 20px!important;
+        margin: 0!important;
     }
     
 }

@@ -151,8 +151,37 @@
         <p>&#169;2024 Jack Graue</p>
     </footer>
 
+    <script>
+        // Function to detect if the device is mobile or desktop
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
 
-    <script src="./src/scripts/darkLightMode.js"></script>
-    <script src="./src/scripts/animations.js"></script>
+        // Function to dynamically load scripts
+        function loadScript(url, callback) {
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = url;
+            if (callback) {
+                script.onload = callback;
+            }
+            document.getElementsByTagName("head")[0].appendChild(script);
+        }
+
+        // Load appropriate script based on the device type
+        if (isMobileDevice()) {
+            loadScript("./src/scripts/functionsMobile.js", function() {
+                console.log("Mobile script loaded.");
+            });
+        } else {
+            loadScript("./src/scripts/functionsDesktop.js", function() {
+                console.log("Desktop script loaded.");
+            });
+        }
+    </script>
+
+
+
+    <script src="./src/scripts/functions.js"></script>
 </body>
 </html>
