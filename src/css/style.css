@@ -262,152 +262,84 @@ button{
 
 /* Projects */
 .project-container{
+    display: flex;
     background-color: var(--secondary-color);
+    padding: 50px 0px;
     min-height: fit-content;
-    padding: 25vh 0vh;
-    transition: all 2s ease-in-out;
+    gap: 24px;
 }
 
-/* project button */
-.dropdown-btn h2{
-    color: var(--primaryDark);
-    transition: all .45s ease-out;
-}
-
-.dropdown-btn{
-    position: relative; /* Change to relative */
-    
-    margin: 0;
-    
-    width: 100%;
-    height: 10vh;
-
-    background-color: var(--white);
-    
-
-    
-    z-index: 6;
-
-    transition: all .45s ease-out;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-   border: 2.5px solid #000!important; 
-}
-
-.dropdown-btn:hover{
-    background-color: var(--primaryDark);
-    box-shadow: var(--white-box-shadow);
-}
-
-
-.dropdown-btn:hover h2 {
-    color: white;
-}
-
-.dropdown-btn:active h2 {
-    transform: scale(1.05);
-}
-
-/* project frames */
-.dropdown{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 0;
-}
-
-#dropdown-content {
-    /* background-color: yellow; */
-    position: relative;
-    overflow: hidden;
-    width: 70%;
-    height: 10vh;
-    border-radius: 15px;
-    transition: all 2s ease-in-out;
-}
-
-.content {
-    position: absolute;
-    overflow: hidden;
-
-    display: flex;
-    justify-content: center;
-    align-items: end;
-
-    top: 0;
-
-    border-radius: 15px;
-
-    width: 100%;
-    height: 0;
-
-    transition: all 1.5s ease-in-out;
-}
-
-.project-frame-dropdown{
-    position: absolute;
-    overflow: hidden;
-
-    width: 100%;
-    height: calc(20vh + 20px)!important;
-    
-    border-radius: 25px;
-    
-    top: 0;
-}
-.project-dropdown-frame{
-    display: flex;
-    width: 100%;
-    height:50vh;
-}
-.content:nth-child(even) .project-dropdown-frame{
-    flex-flow: row-reverse;
-}
+/* project items */
 .blue{
     background-color: var(--blue);
-    z-index: 5;
+    border-color: var(--darkBlue);
 }
 .green {
     background-color: var(--green);
-    z-index: 4;
+    border-color: #617741;
 }
 .yellow {
     background-color: var(--yellow);
-    z-index: 3;
+    border-color: var(--darkYellow);
 }
 .orange {
     background-color: var(--orange);
-    z-index: 2;
+    border-color: #9b4615;
 }
 .red {
     background-color: var(--red);
-    z-index: 1;
+    border-color: var(--darkRed);
+}
+.project-row{
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+    display: flex;
+}
+
+.project-item{
+    display: flex;
+    justify-content: center;
+    height: 45vh;
+    width: 0;
+    
+    border-style: solid;
+    border-radius: 0px 25px 25px 0px;
+    border-width: 0px 6px 6px 0px;
+    overflow: hidden;
+
+    padding: 10px 0px;
+
+    transition: all .5s ease-out;
+}
+
+.project-row:nth-child(odd), .project-row:nth-child(odd) .project-item{
+    flex-direction: row-reverse;
+    border-radius: 25px 0px 0px 25px;
+    border-width: 0px 0px 6px 6px;
 }
 
 /* inside project frames */
 .project-info{
-    width: 65%;
+    width: 60%;
 }
-.project-info p{
-    font-size: 1rem;
+
+.project-info h3{
+    font-size: 2rem;
+    text-align: center;
 }
-.website-display{
-    width: 45%;
+
+.project-window{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .website-window{
+    background-color: red;
     width: 90%;
     aspect-ratio: 16 / 9;
-    background-color: red;
-    margin: 0px 12px;
-}
-.content:nth-child(odd) .website-display {
-    align-items:start;
-}
-.content:nth-child(even) .website-display {
-    align-items: end;
 }
 
 
@@ -545,25 +477,18 @@ footer p{
 
     /* project */
     .project-container{
-        padding: 30vh 0vh;
         min-height: fit-content!important;
     }
-    .project-dropdown-frame{
-        flex-direction: column!important;
-        justify-content: end;
-        padding-bottom: 3vh;
+    .project-container h2{
+        font-size: 2.5rem;
     }
-    .project-info, .website-display{
+    .project-item{
+        flex-direction: column!important;
+        height: 70vh;
+    }
+    .project-info, .project-window{
         width: 100%;
     }
-    .website-display{
-        display: flex;
-        align-items: center!important;
-    }
-    .website-window{
-        margin: 0!important;
-    }
-    
 }
 
 /* Mobile */

@@ -11,82 +11,82 @@ function detectColorScheme() {
 // Detect color scheme on page load
 detectColorScheme();
 
-
-// Transition to section animation
-document.addEventListener('DOMContentLoaded', function() {
-    var links = document.querySelectorAll('a[href^="#"]');
-    
-    for (var i = 0; i < links.length; i++) {
-        links[i].addEventListener('click', smoothScroll);
-    }
-
-    function smoothScroll(e) {
+// Smooth scrolling functionality
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        
-        var targetId = this.getAttribute('href');
-        var targetElement = document.querySelector(targetId);
-        var targetOffset = targetElement.getBoundingClientRect().top;
-        var startPosition = window.pageYOffset;
-        var distance = targetOffset - startPosition;
-        var duration = 800; // Adjust the duration as needed
-        
-        var startTime = null;
-        function animation(currentTime) {
-            if (startTime === null) startTime = currentTime;
-            var timeElapsed = currentTime - startTime;
-            var run = ease(timeElapsed, startPosition, distance, duration);
-            window.scrollTo(0, run);
-            if (timeElapsed < duration) requestAnimationFrame(animation);
-        }
 
-        function ease(t, b, c, d) {
-            
-            t /= d / 2;
-            if (t < 1) return c / 2 * t * t + b;
-            t--;
-            return -c / 2 * (t * (t - 2) - 1) + b;
-        }
+        const target = document.querySelector(this.getAttribute('href'));
 
-        requestAnimationFrame(animation);
-    }
-});
-
-
-
-// Project Drop down
-function toggleLinkStyles(link, isExpanded, index) {
-    let heightFactor = 0;
-    let heightOffset = 0
-    let frameHeight = 0;
-    if (window.innerWidth <= 1000) {
-        // heightFactor = 83;
-        // heightOffset = 40;
-        heightFactor = 75;
-        heightOffset = 10;
-    } else {
-        heightFactor = 50;
-        heightOffset = 5;
-    }
-    console.log(window.innerWidth)
-    if (isExpanded) {
-        link.style.padding = `${((heightFactor*index)+heightOffset)}vh 0 0 0`;
-        link.style.height = "20%";
-        dropdownContent.style.height = `${(heightFactor*4)+heightOffset+50}vh`
-    } else {
-        link.style.padding = "0";
-        link.style.height = "0%";
-        dropdownContent.style.height = `10vh`
-    }
-}
-
-var links = document.querySelectorAll("div .content");
-var dropdownContent = document.querySelector("#dropdown-content");
-var dropdown = document.querySelector(".dropdown");
-
-let isExpanded = false;
-document.querySelector(".dropdown-btn").addEventListener("click", function() {
-    isExpanded = !isExpanded;
-    links.forEach(function(link, index) {
-        toggleLinkStyles(link, isExpanded, index);
+        target.scrollIntoView({
+            behavior: 'smooth'
+        });
     });
 });
+
+// Project scroll in
+document.addEventListener("DOMContentLoaded", function() {
+    var scrollFades = document.querySelectorAll('.project-item');
+    
+    function fadeInOnScroll() {
+        scrollFades.forEach(function(scrollFade) {
+            
+            var distanceToTop = scrollFade.getBoundingClientRect().top;
+            var elementHeight = scrollFade.offsetHeight;
+            var windowHeight = window.innerHeight;
+
+            // Add an offset to start fading in a bit sooner
+            var offset = 600; // Adjust this value as needed
+            // If the top of the element is within the viewport, or if it's close to being in the viewport, fade it in
+            if (distanceToTop - windowHeight + elementHeight < offset) {
+                var width = ((windowHeight - distanceToTop + offset) / (windowHeight + offset))*100;
+                
+                console.log(Math.round(width));
+                if (width <90) {
+                    scrollFade.style.width = `${width}%`;
+                } else {
+
+                }
+                
+            }
+        });
+    }
+
+    // Initial call to set the initial opacity
+    fadeInOnScroll();
+
+    const element = document.querySelector('body');
+    element.addEventListener('scroll', function() {
+        fadeInOnScroll();
+        
+    });
+});
+
+
+
+// Function to detect if the device is mobile or desktop
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+}
+
+// Function to dynamically load scripts
+function loadScript(url, callback) {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = url;
+    if (callback) {
+        script.onload = callback;
+    }
+    document.getElementsByTagName("head")[0].appendChild(script);
+}
+
+// Load appropriate script based on the device type
+if (isMobileDevice()) {
+    loadScript("./src/scripts/functionsMobile.js", function() {
+        console.log("Mobile script loaded.");
+    });
+} else {
+    loadScript("./src/scripts/functionsDesktop.js", function() {
+        console.log("Desktop script loaded.");
+    });
+}
