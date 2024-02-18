@@ -122,15 +122,15 @@ document.addEventListener('DOMContentLoaded', function() {
 // Project Drop down
 function toggleLinkStyles(link, isExpanded, index) {
     if (isExpanded) {
-        let paddingValue = `${(40*(index)+5)}vh 0 0 0`;
+        let paddingValue = `${(50*(index)+8)}vh 0 0 0`;
         
         link.style.padding = paddingValue;
         link.style.height = "20%";
-        dropdownContent.style.height = `${209}vh`
+        dropdownContent.style.height = `${266}vh`
     } else {
         link.style.padding = "0";
         link.style.height = "0%";
-        dropdownContent.style.height = `7vh`
+        dropdownContent.style.height = `10vh`
     }
 }
 
