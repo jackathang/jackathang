@@ -210,7 +210,6 @@ button{
     border-radius: 25px;
 
     display: none;
-    transition: all .45s ease-out;
 }
 
 .popup-menu{
@@ -220,7 +219,7 @@ button{
     height: 5%;
 }
 .popup-menu button{
-    color: var(--primary-color);
+    color: var(--secondary-font-color);
     height: fit-content;
     width: fit-content;
     padding: 10px;
