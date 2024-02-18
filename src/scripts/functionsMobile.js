@@ -7,16 +7,18 @@ function rejectPermissions(){
     mobilePopup.style.display = "none"
 }
 
-
 //Accept permissions 
 function acceptPermissions(){
     mobilePopup.style.display = "none"
-    console.log("dookie shart")
+    requestDeviceOrientation();
 }
 
-document.querySelector(".hero-container").addEventListener("tap",function(){
-    requestDeviceOrientation();
-})
+const logoSegments = document.querySelectorAll(".logo-piece");
+const logoContainer = document.querySelector(".logo");
+
+const logoRect = logoContainer.getBoundingClientRect();
+const logoCenterX = logoRect.left+ (logoRect.width / 2), logoCenterY = logoRect.top + (logoRect.height / 2);
+
 
 // mobile
 let originalAlpha, originalBeta, originalGamma;
@@ -56,6 +58,7 @@ async function requestDeviceOrientation() {
         const permissionState = await DeviceOrientationEvent.requestPermission()
         if (permissionState === 'granted') {
           window.addEventListener('deviceorientation', handleOrientation)
+          console.log("test")
         } else {
           console.log('Permission was denied')
         }
